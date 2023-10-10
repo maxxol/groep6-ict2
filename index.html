@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>My first three.js app</title>
+    <style>
+        body { margin: 0; overflow: hidden;}
+        canvas { display: block; }
+
+    </style>
+</head>
+<body>
+
+<script type="module" src="/main.js"></script> <!--loads the main game from main.js-->
+
+<script> <!--scripts for full screen and cursor lock-->
+    //full screen function
+    function toggleFullscreen() {
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+            document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+            document.documentElement.webkitRequestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+            document.documentElement.msRequestFullscreen();
+        }
+    }
+    // Function to lock the cursor
+    function lockCursor() {
+        const element = document.body;
+        element.requestPointerLock(); //requests browser to lock cursor
+    }
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'f' || event.key === 'F') { //triggers full screen and cursor lock when f is pressed
+            lockCursor();
+            toggleFullscreen();
+        }
+    });
+
+</script>
+
+</body>
+</html>
