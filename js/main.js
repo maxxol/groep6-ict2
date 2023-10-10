@@ -1,18 +1,22 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import controls, {loadplayer, getPlayer,updatecontrols } from "./controls"
-;
+import {placeLightPosts} from "./LightPost";
+
 //import {Reflector} from 'three/examples/jsm/objects/Reflector'
 //------------------------------------------------------------------------------------------------------------------------------------
 
 //scene
 const scene = new THREE.Scene();
 
+
+
 //camera
 const camera = new THREE.PerspectiveCamera(75,16/9,0.1,20000);
 camera.position.set(1, 1, 6);
 
-export {camera,scene}; //export for controls.js
+export {camera,scene}; //export
+
 
 //renderer
 const renderer = new THREE.WebGLRenderer();
@@ -67,52 +71,9 @@ ground.position.set(0,0,0);
 
 //-----------------------------------------------------------------------------------------------------------------
 //lightposts
-class LightPost {
-    constructor(scene) {
-        this.scene = scene;
-    }
 
-    create(x, z) {
-        // Post without the 'glass' containing the lamp
-        const geometryPost = new THREE.BoxGeometry(0.7, 5, 0.7);
-        const materialPost = new THREE.MeshPhongMaterial({ color: 0xCCCCCC });
-        this.lampPost = new THREE.Mesh(geometryPost, materialPost);
-        this.lampPost.position.set(x, 3, z);
-        this.scene.add(this.lampPost);
+placeLightPosts(scene);
 
-        // Glass containing the lamp
-        const geometryPostGlass = new THREE.BoxGeometry(1, 1, 1);
-        const materialPostGlass = new THREE.MeshBasicMaterial({ color: 0xFFFF00 });
-        this.lampPostGlass = new THREE.Mesh(geometryPostGlass, materialPostGlass);
-        this.lampPostGlass.position.set(x, 5.8, z);
-        this.scene.add(this.lampPostGlass);
-
-        // Light emitter
-        this.lightPostLamp = new THREE.PointLight(0xFFFFFF, 100);
-        this.lightPostLamp.position.set(x, 5.8, z);
-        this.scene.add(this.lightPostLamp);
-    }
-}
-
-// Create light posts
-const lightPosts = new LightPost(scene);
-
-// Lights at opening path
-lightPosts.create(10, 4);
-lightPosts.create(10, -10);
-
-// Light at spinning cubes
-lightPosts.create(40, 4);
-lightPosts.create(40, -10);
-
-// Lights at skull
-lightPosts.create(40, 47);
-lightPosts.create(54, 47);
-lightPosts.create(54, 33);
-
-//lights at coaster test
-lightPosts.create(90,47);
-lightPosts.create(90,33);
 
 //----------------------------------------------------------------------------------------------------------------
 //spinning cube

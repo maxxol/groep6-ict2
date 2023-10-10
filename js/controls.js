@@ -7,15 +7,14 @@ function loadplayer(scene, camera) {
     // Add the passed camera to the player object
     const player = new THREE.Object3D();
     player.add(camera);
-    camera.eulerOrder = "YXZ";
+    camera.rotation.order = "YXZ"; // Set the camera's eulerOrder to "YXZ" (prevents camera rolling when moving mouse up and down)
 
     // Set the initial camera position and rotation
-    camera.rotation.set(0, 1.5*Math.PI, 0);
-    camera.position.set(0, 0.6, 0);
+    camera.rotation.set(0, 1.5*Math.PI, 0); // looking down the path
 
 
     // Set the initial player position
-    player.position.set(0, 0, 0);
+    player.position.set(0, 0, -2); //standing in front the path
 
     // Add the player object to the passed scene
     scene.add(player);
@@ -95,7 +94,6 @@ const maxPitch = Math.PI / 2 - 0.01;
 const minPitch = -maxPitch;
 
 document.addEventListener('mousemove', (event) => {
-    camera.rotation.order = "YXZ"; // Set the camera's eulerOrder to "YXZ" (in listener because of "not initialised" shenanigans)
 
     camera.rotation.y -= event.movementX * sensitivityX; // Rotate the camera around the y-axis (yaw)
 
