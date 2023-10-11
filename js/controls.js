@@ -3,7 +3,7 @@ import {camera} from "./main"
 
 const player = new THREE.Object3D();
 
-function loadplayer(scene, camera) {
+function loadPlayer(scene, camera) {
     // Add the passed camera to the player object
     const player = new THREE.Object3D();
     player.add(camera);
@@ -26,7 +26,7 @@ function getPlayer() {
     return player;
 }
 
-export { loadplayer, getPlayer };
+export { loadPlayer, getPlayer };
 
 // creating control booleans, default on false
 const controls = {
@@ -106,7 +106,7 @@ document.addEventListener('mousemove', (event) => {
 
 
 //animate controls function
-export function updatecontrols(camera,time,delta) {
+export function updateControls(camera,time,delta) {
     const speed = 30; // Adjust this value for movement speed
     const gravity = 10; // Adjust this value for gravity strength
 

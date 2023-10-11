@@ -1,10 +1,10 @@
 import * as THREE from 'three';
 
-import controls, {loadplayer, getPlayer,updatecontrols } from "./controls"
-import {placeLightPosts} from "./LightPost";
-import { SpinningCube, LightPoint, spinTheCubes } from "./OrbitingCubes";
+import controls, {loadPlayer, getPlayer,updateControls } from "./controls"
+import {placeLightPosts} from "./lightPost";
+import { SpinningCube, LightPoint, spinTheCubes } from "./orbitingCubes";
 import { Skybox, Ground } from './environment';
-import {loadModels,modelglobal} from "./modelLoader";
+import {loadModels,modelGlobal} from "./modelLoader";
 //import {Reflector} from 'three/examples/jsm/objects/Reflector'
 //------------------------------------------------------------------------------------------------------------------------------------
 
@@ -22,7 +22,7 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth,window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-loadplayer(scene,camera); //loads player from controls.js
+loadPlayer(scene,camera); //loads player from controls.js
 const player = getPlayer();
 //console.log("(main)player loaded in at "+player.position.x+" "+player.position.z) //debug
 
@@ -117,7 +117,7 @@ const animate = () => {
     const time = performance.now();
     const delta = (time - controls.prevTime) / 1000;
 
-    updatecontrols(camera,time,delta);
+    updateControls(camera,time,delta);
     camera.position.set(player.position.x,player.position.y+4.6,player.position.z)
 
     // Rotate the majestic cube of death
@@ -126,7 +126,7 @@ const animate = () => {
     moveCoaster(time);
     enterRollerCoaster()
 
-    modelglobal.rotation.y += 0.04; //rotate skull model
+    modelGlobal.rotation.y += 0.04; //rotate skull model
     renderer.setSize(window.innerWidth,window.innerHeight); //changes main.js module to fit in window every frame
 
 };
