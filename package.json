@@ -1,0 +1,11 @@
+{
+  "name": "rasterizertest",
+  "version": "1.0.0",
+  "dependencies": {
+    "keyboard-js": "^1.1.4",
+    "three": "^0.157.0"
+  },
+  "devDependencies": {
+    "vite": "^4.4.9"
+  }
+}
