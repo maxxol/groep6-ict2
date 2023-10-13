@@ -26,13 +26,20 @@ class Ground {
 }
 class Pond {
     constructor(scene, radiusTop, radiusBottom, height, radialSegments, x, z) {
+
+        this.waterNormalMap = new THREE.TextureLoader().load("assets/textures/pond/waterNormalMap.jpg");
+        this.waterNormalMap.wrapS = THREE.RepeatWrapping
+        this.waterNormalMap.wrapT = THREE.RepeatWrapping
+        this.waterNormalMap.repeat.set(2, 2);
+
         //water
         this.pondGeometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, radialSegments);
         this.pondMaterial = new THREE.MeshPhongMaterial({
-            color: 0xd4f1f9,
+            color: 0x00FFFF,
             shininess: 300,
-            opacity: 0.7,
-            transparent: true
+            opacity: 0.4,
+            transparent: true,
+            normalMap: this.waterNormalMap
         });
         this.pond = new THREE.Mesh(this.pondGeometry, this.pondMaterial);
         scene.add(this.pond);

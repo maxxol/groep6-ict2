@@ -38,7 +38,7 @@ lightD.position.set(100,1,100)
 //environment
 
 const skybox = new Skybox(scene, 'assets/textures/skybox/skyBoxDay.jpg', 10000); // Adjust the radius as needed
-const ground = new Ground(scene, 'assets/textures/ground/groundtext.jpg', new THREE.Vector3(1000, 1, 1000));
+const ground = new Ground(scene, 'assets/textures/ground/grass.jpg', new THREE.Vector3(1000, 1, 1000));
 const pond = new Pond(scene,15,5,0.5,32,70,70)
 //------------------------------------------------------------------------------------
 //lightposts
