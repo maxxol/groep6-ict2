@@ -6,7 +6,7 @@ import { SpinningCube, LightPoint, spinTheCubes } from "./orbitingCubes";
 import { Skybox, Ground, Pond } from './environment';
 import {loadModels,modelGlobal} from "./modelLoader";
 
-//import {Reflector} from 'three/examples/jsm/objects/Reflector'
+
 //------------------------------------------------------------------------------------------------------------------------------------
 
 //scene
@@ -30,23 +30,32 @@ const player = getPlayer();
 //---------------------------------------------------------------------------------------------------------------
 //lighting
 
-const lightD = new THREE.DirectionalLight(0xA0A0A0, 300)
+const lightD = new THREE.DirectionalLight(0xA0A0A0, 200)
 scene.add(lightD)
 lightD.position.set(100,1,100)
 
+const lightAmbient = new THREE.AmbientLight(0xFFFFFF,0.5)
+scene.add(lightAmbient)
+
 //------------------------------------------------------------------------------------------------------------------------------------
-//environment
+//environment.js
 
 const skybox = new Skybox(scene, 'assets/textures/skybox/skyBoxDay.jpg', 10000); // Adjust the radius as needed
 const ground = new Ground(scene, 'assets/textures/ground/grass.jpg', new THREE.Vector3(1000, 1, 1000));
 const pond = new Pond(scene,15,5,0.5,32,70,70)
 //------------------------------------------------------------------------------------
-//lightposts
+//walls.js
+import {buildWalls} from "./walls";
+
+buildWalls(scene);
+
+//------------------------------------------------------------------------------------
+//lightPost.js
 
 placeLightPosts(scene);
 
 //----------------------------------------------------------------------------------------------------------------
-//spinning cube
+//OrbitingCubes.js
 
 const spinningcube1 = new SpinningCube(scene, 55, 5, -3, 0xF0ff00, 2, "MeshBasicMaterial");
 const spinningcube2 = new SpinningCube(scene, 55, 5, -2.8, 0xFF8080, 1, "MeshPhongMaterial");
@@ -68,11 +77,12 @@ addPath(70,40,50,6)
 addPath(115,40,40,40)
 
 //------------------------------------------------------------------------------------------------------------------------------------
-//3d models
+//modelLoader.js
 
 loadModels(scene) //load the skull model
 //--------------------------------------------------------------------------------------------------------------
 //mirror test
+//import {Reflector} from 'three/examples/jsm/objects/Reflector'
 // const mirror:Reflector = new Reflector(
 //     new THREE.PlaneGeometry(2,2),{
 //         color:new THREE.color(0xFFFFFF),
