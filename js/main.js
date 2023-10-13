@@ -3,8 +3,9 @@ import * as THREE from 'three';
 import controls, {loadPlayer, getPlayer,updateControls } from "./controls"
 import {placeLightPosts} from "./lightPost";
 import { SpinningCube, LightPoint, spinTheCubes } from "./orbitingCubes";
-import { Skybox, Ground } from './environment';
+import { Skybox, Ground, Pond } from './environment';
 import {loadModels,modelGlobal} from "./modelLoader";
+
 //import {Reflector} from 'three/examples/jsm/objects/Reflector'
 //------------------------------------------------------------------------------------------------------------------------------------
 
@@ -29,17 +30,17 @@ const player = getPlayer();
 //---------------------------------------------------------------------------------------------------------------
 //lighting
 
-const lightD = new THREE.DirectionalLight(0xA0A0A0, 1)
+const lightD = new THREE.DirectionalLight(0xA0A0A0, 300)
 scene.add(lightD)
-lightD.position.set(0,1,0)
+lightD.position.set(100,1,100)
 
 //------------------------------------------------------------------------------------------------------------------------------------
 //environment
 
-const skybox = new Skybox(scene, 'assets/textures/skybox/skyboxspace.png', 10000); // Adjust the radius as needed
+const skybox = new Skybox(scene, 'assets/textures/skybox/skyBoxDay.jpg', 10000); // Adjust the radius as needed
 const ground = new Ground(scene, 'assets/textures/ground/groundtext.jpg', new THREE.Vector3(1000, 1, 1000));
-
-//-----------------------------------------------------------------------------------------------------------------
+const pond = new Pond(scene,15,5,0.5,32,70,70)
+//------------------------------------------------------------------------------------
 //lightposts
 
 placeLightPosts(scene);
