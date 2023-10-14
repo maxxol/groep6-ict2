@@ -17,7 +17,7 @@ class Wall{
     }
 }
 
-//function to load all the walls, called from main
+//function to load all the walls, called from main.
 function buildWalls(scene){
     const wall1 = new Wall(scene,180,0,-10,0)
     const wall2 = new Wall(scene,160,0.5*Math.PI,70,90) //0.5*Math.PI means the wall is rotated 90 degrees
