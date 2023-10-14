@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 class Skybox {
     constructor(scene, texturePath, radius) {
@@ -22,5 +23,32 @@ class Ground {
         scene.add(this.mesh);
     }
 }
+const loader = new GLTFLoader();//loader
 
-export { Skybox, Ground };
+async function treeModel(scene) {
+    try {
+        const treeModel = await loader.loadAsync('assets/3d_models/low_poly_tree.glb'); //loads tree models
+        const treeModel1 = await loader.loadAsync('assets/3d_models/low_poly_tree.glb'); //loads tree models
+        const treeModel2 = await loader.loadAsync('assets/3d_models/low_poly_tree.glb'); //loads tree models
+        const treeModel3 = await loader.loadAsync('assets/3d_models/low_poly_tree.glb'); //loads tree models
+
+        const model  = treeModel.scene;
+        const model1 = treeModel1.scene;
+        const model2 = treeModel2.scene;
+        const model3 = treeModel3.scene;
+        scene.add(model, model1, model2,model3); //adds tree to the scene
+
+        model.position.set(87,0,54)
+        model1.position.set(47,0,54)
+        model2.position.set(27,0,54)
+        model3.position.set(107,0,54)
+
+
+
+    } catch (error) {
+        console.error('An error occurred while loading the model:', error);
+    }
+}
+
+
+export { Skybox, Ground,treeModel};

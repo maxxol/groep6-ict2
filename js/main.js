@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import controls, {loadPlayer, getPlayer,updateControls } from "./controls"
 import {placeLightPosts} from "./lightPost";
 import { SpinningCube, LightPoint, spinTheCubes } from "./orbitingCubes";
-import { Skybox, Ground } from './environment';
+import { Skybox, Ground,treeModel } from './environment';
 import {loadModels,modelGlobal} from "./modelLoader";
 //import {Reflector} from 'three/examples/jsm/objects/Reflector'
 //------------------------------------------------------------------------------------------------------------------------------------
@@ -70,6 +70,7 @@ addPath(115,40,40,40)
 //3d models
 
 loadModels(scene) //load the skull model
+treeModel(scene)
 //--------------------------------------------------------------------------------------------------------------
 //mirror test
 // const mirror:Reflector = new Reflector(
