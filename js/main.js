@@ -5,7 +5,7 @@ import {placeLightPosts} from "./lightPost";
 import { SpinningCube, LightPoint, spinTheCubes } from "./orbitingCubes";
 import { Skybox, Ground, Pond } from './environment';
 import {loadModels,modelGlobal} from "./modelLoader";
-
+import{Carousel,carouselCart,moveCarousel,carouselPole} from "./Carousel";
 
 //------------------------------------------------------------------------------------------------------------------------------------
 
@@ -43,18 +43,23 @@ scene.add(lightAmbient)
 const skybox = new Skybox(scene, 'assets/textures/skybox/skyBoxDay.jpg', 10000); // Adjust the radius as needed
 const ground = new Ground(scene, 'assets/textures/ground/grass.jpg', new THREE.Vector3(1000, 1, 1000));
 const pond = new Pond(scene,15,5,0.5,32,70,70)
-//------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------
 //walls.js
 import {buildWalls} from "./walls";
 
 buildWalls(scene);
 
-//------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------
 //lightPost.js
 
 placeLightPosts(scene);
 
-//----------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------
+//Carousel.js
+const carousel1 = new Carousel(scene,115,40);
+const carouselCart1 = carouselCart(scene);
+const carouselPole1 = carouselPole(scene);
+//------------------------------------------------------------------------------------------------------------------
 //OrbitingCubes.js
 
 const spinningcube1 = new SpinningCube(scene, 55, 5, -3, 0xF0ff00, 2, "MeshBasicMaterial");
@@ -92,31 +97,31 @@ loadModels(scene) //load the skull model
 // )
 //----------------------------------------------------------------------------------------------------------------
 //coaster test
-const geometryCoasterCart = new THREE.BoxGeometry( 2, 2, 2 );
-const materialCoasterCart = new THREE.MeshPhongMaterial( { color: 0xFF8080 } );
-const CoasterCart = new THREE.Mesh(geometryCoasterCart, materialCoasterCart);
-scene.add( CoasterCart );
-CoasterCart.position.set(115,3,40)
-
-const radiusCoaster = 15; // Adjust the radius of the circular motion
-const angularSpeedCoaster = 0.004; // Adjust the speed of rotation
-function moveCoaster(time) {
-    // Calculate the current angle based on time and angular speed
-    const angle = time * angularSpeedCoaster;
-
-    // Calculate the positions of spinningcube2 and spinningcube3
-    const coasterCartX = 115 + radiusCoaster * Math.cos(angle); //center of procesion(spinningcube)
-    const coasterCartZ = 40 + radiusCoaster * Math.sin(angle);
-    CoasterCart.lookAt(115,3,40)
-    CoasterCart.position.set(coasterCartX, 4, coasterCartZ);
-}
-function enterRollerCoaster(){
-if(player.position.x >92 && player.position.x<130 && player.position.z>20 && player.position.z<60){
-    camera.position.set(CoasterCart.position.x,CoasterCart.position.y+2,CoasterCart.position.z+2)
-
-    camera.lookAt(115,5,40)
-    camera.rotation.y += 90;
-}}
+// const geometryCoasterCart = new THREE.BoxGeometry( 2, 2, 2 );
+// const materialCoasterCart = new THREE.MeshPhongMaterial( { color: 0xFF8080 } );
+// const CoasterCart = new THREE.Mesh(geometryCoasterCart, materialCoasterCart);
+// scene.add( CoasterCart );
+// CoasterCart.position.set(115,3,40)
+//
+// const radiusCoaster = 15; // Adjust the radius of the circular motion
+// const angularSpeedCoaster = 0.004; // Adjust the speed of rotation
+// function moveCoaster(time) {
+//     // Calculate the current angle based on time and angular speed
+//     const angle = time * angularSpeedCoaster;
+//
+//     // Calculate the positions of spinningcube2 and spinningcube3
+//     const coasterCartX = 115 + radiusCoaster * Math.cos(angle); //center of procesion(spinningcube)
+//     const coasterCartZ = 40 + radiusCoaster * Math.sin(angle);
+//     CoasterCart.lookAt(115,3,40)
+//     CoasterCart.position.set(coasterCartX, 4, coasterCartZ);
+// }
+// function enterRollerCoaster(){
+// if(player.position.x >92 && player.position.x<130 && player.position.z>20 && player.position.z<60){
+//     camera.position.set(CoasterCart.position.x,CoasterCart.position.y+2,CoasterCart.position.z+2)
+//
+//     camera.lookAt(115,5,40)
+//     camera.rotation.y += 90;
+// }}
 //----------------------------------------------------------------------------------------------------------------
 
 console.log("(main pre animate)player loaded in at "+player.position.x+" "+player.position.z)
@@ -134,9 +139,10 @@ const animate = () => {
     // Rotate the majestic cube of death
     spinTheCubes(scene, performance.now(), spinningcube1, spinningcube2, spinningcube3);
 
-    moveCoaster(time);
-    enterRollerCoaster()
-
+    moveCarousel(time,carouselCart1,carouselPole1)
+    // moveCoaster(time);
+    // enterRollerCoaster()
+    //carouselCart1.position.set(115,50,40)
     modelGlobal.rotation.y += 0.04; //rotate skull model
     renderer.setSize(window.innerWidth,window.innerHeight); //changes main.js module to fit in window every frame
 

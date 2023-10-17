@@ -63,10 +63,8 @@ class Pond {
         scene.add(this.pondBottom);
         this.pondBottom.position.set(x, 0.25, z)
 
-        //loading texture for torus (needs different wrapping)
-        this.rockShoreTexture = new THREE.TextureLoader().load("assets/textures/pond/rocktexture.jpg");
-        this.rockShoreTexture.wrapS = THREE.RepeatWrapping
-        this.rockShoreTexture.wrapT = THREE.RepeatWrapping
+        //texture for torus around pond (needs different wrapping)
+        this.rockShoreTexture = this.rockBottomTexture;
         this.rockShoreTexture.repeat.set(25, 2.5);
 
         //torus around side
