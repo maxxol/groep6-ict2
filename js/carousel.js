@@ -3,16 +3,30 @@ import * as THREE from 'three'
 class Carousel {
     constructor(scene,x,z) {
 
+        //loading normal map texture for water cylinder
+        this.metalTexture = new THREE.TextureLoader().load("assets/textures/carousel/metalTexture.jpg");
+        this.metalTexture.wrapS = THREE.RepeatWrapping
+        this.metalTexture.wrapT = THREE.RepeatWrapping
+        this.metalTexture.repeat.set(15,15);
+
         //floor cylinder
         this.carouselBottomGeometry = new THREE.CylinderGeometry(20, 20, 1, 40);
-        this.carouselBottomMaterial = new THREE.MeshLambertMaterial({color: 0xF02020,});
+        this.carouselBottomMaterial = new THREE.MeshLambertMaterial({
+            color: 0x909090,
+            map:this.metalTexture,
+            emissive: 0x202020, // Adjust the emissive color
+            emissiveIntensity: 0.2,
+        });
+
+
+
         this.carouselBottomMesh = new THREE.Mesh(this.carouselBottomGeometry,this.carouselBottomMaterial)
         scene.add(this.carouselBottomMesh)
         this.carouselBottomMesh.position.set(x,1,z)
 
         //middle pillar
         this.middlePillarGeometry = new THREE.CylinderGeometry(2, 2, 20, 40);
-        this.middlePillarMaterial = new THREE.MeshLambertMaterial({color: 0xF02020,});
+        this.middlePillarMaterial = this.carouselBottomMaterial;
         this.middlePillarMesh = new THREE.Mesh(this.middlePillarGeometry,this.middlePillarMaterial)
         scene.add(this.middlePillarMesh)
         this.middlePillarMesh.position.set(x,10,z)
@@ -52,18 +66,31 @@ class Carousel {
 
 const radiusCoaster = 15; // Adjust the radius of the circular motion
 const angularSpeedCoaster = 0.002; // Adjust the speed of rotation
+const radiusPole = 14
 function moveCarousel(time,carouselCart1,carouselCartPole1) {
 
     // Calculate the current angle based on time and angular speed
     const angle = time * angularSpeedCoaster;
 
     // Calculate the positions of spinningcube2 and spinningcube3
-    const coasterCartX = 115 + radiusCoaster * Math.cos(angle); //center of procesion(spinningcube)
-    const coasterCartZ = 40 + radiusCoaster * Math.sin(angle);
+    const carouselCartX = 115 + radiusCoaster * Math.cos(angle); //center of procesion(spinningcube)
+    const carouselCartZ = 40 + radiusCoaster * Math.sin(angle);
     carouselCart1.lookAt(115,4,40)
-    carouselCart1.position.set(coasterCartX, 4, coasterCartZ);
-    carouselCartPole1.position.set(carouselCart1.position.x,8,carouselCart1.position.z)
+    carouselCart1.position.set(carouselCartX, 4, carouselCartZ);
+
+    const carouselPoleX = 115 + radiusPole * Math.cos(angle); //center of procesion(spinningcube)
+    const carouselPoleZ = 40 + radiusPole * Math.sin(angle);
+    carouselCartPole1.position.set(carouselPoleX,8,carouselPoleZ)
 
 }
 
-export{Carousel,carouselCart,carouselPole,moveCarousel}
+function tryToEnterRollerCoaster(player,CoasterCart,camera){
+if(player.position.x >92 && player.position.x<130 && player.position.z>20 && player.position.z<60){
+
+    camera.position.set(CoasterCart.position.x,CoasterCart.position.y+2,(CoasterCart.position.z+2))
+
+    camera.lookAt(115,5,40)
+    camera.rotation.y += 0.4*Math.PI;
+}}
+
+export{Carousel,carouselCart,carouselPole,moveCarousel,tryToEnterRollerCoaster}
