@@ -5,21 +5,21 @@ class Carousel {
 
         //floor cylinder
         this.carouselBottomGeometry = new THREE.CylinderGeometry(20, 20, 1, 40);
-        this.carouselBottomMaterial = new THREE.MeshLambertMaterial({color: 0x909090,});
+        this.carouselBottomMaterial = new THREE.MeshLambertMaterial({color: 0xF02020,});
         this.carouselBottomMesh = new THREE.Mesh(this.carouselBottomGeometry,this.carouselBottomMaterial)
         scene.add(this.carouselBottomMesh)
         this.carouselBottomMesh.position.set(x,1,z)
 
         //middle pillar
         this.middlePillarGeometry = new THREE.CylinderGeometry(2, 2, 20, 40);
-        this.middlePillarMaterial = new THREE.MeshLambertMaterial({color: 0x909090,});
+        this.middlePillarMaterial = new THREE.MeshLambertMaterial({color: 0xF02020,});
         this.middlePillarMesh = new THREE.Mesh(this.middlePillarGeometry,this.middlePillarMaterial)
         scene.add(this.middlePillarMesh)
         this.middlePillarMesh.position.set(x,10,z)
 
         //roof cone
         this.roofConeGeometry = new THREE.ConeGeometry(20,7,60,10)
-        this.roofConeMaterial = new THREE.MeshPhongMaterial({side: THREE.DoubleSide});
+        this.roofConeMaterial = new THREE.MeshPhongMaterial({color: 0xF02020,side: THREE.DoubleSide});
         this.roofConeMesh = new THREE.Mesh(this.roofConeGeometry,this.roofConeMaterial);
         scene.add(this.roofConeMesh);
         this.roofConeMesh.position.set(x,20,z)

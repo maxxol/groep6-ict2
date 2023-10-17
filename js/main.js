@@ -124,7 +124,7 @@ loadModels(scene) //load the skull model
 // }}
 //----------------------------------------------------------------------------------------------------------------
 
-console.log("(main pre animate)player loaded in at "+player.position.x+" "+player.position.z)
+//console.log("(main pre animate)player loaded in at "+player.position.x+" "+player.position.z) //debug
 // Animation loop
 const animate = () => {
     requestAnimationFrame(animate); //rendering a frame
