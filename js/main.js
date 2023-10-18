@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import controls, {loadPlayer, getPlayer,updateControls } from "./controls"
 import {placeLightPosts} from "./lightPost";
 import { SpinningCube, LightPoint, spinTheCubes } from "./orbitingCubes";
-import { Skybox, Ground,treeModel } from './environment';
+import { Skybox, Ground,Tree } from './environment';
 import {loadModels,modelGlobal} from "./modelLoader";
 //import {Reflector} from 'three/examples/jsm/objects/Reflector'
 //------------------------------------------------------------------------------------------------------------------------------------
@@ -70,7 +70,16 @@ addPath(115,40,40,40)
 //3d models
 
 loadModels(scene) //load the skull model
-treeModel(scene)
+const treePosition1 = new THREE.Vector3(87, 0, 54); // Set the position for the tree
+const tree1 = new Tree('assets/3d_models/low_poly_tree.glb',treePosition1);
+const treePosition2 = new THREE.Vector3(87, 0, 28); // Set the position for the tree
+const tree2 = new Tree('assets/3d_models/low_poly_tree.glb',treePosition2);
+const treePosition3 = new THREE.Vector3(47, 0, -10); // Set the position for the tree
+const tree3 = new Tree('assets/3d_models/low_poly_tree.glb',treePosition3);
+const treePosition4 = new THREE.Vector3(47, 0, 54); // Set the position for the tree
+const tree4 = new Tree('assets/3d_models/low_poly_tree.glb',treePosition4);
+scene.add(tree1.object,tree2.object,tree3.object,tree4.object); // Add the tree Object3D to the Three.js scene.
+
 //--------------------------------------------------------------------------------------------------------------
 //mirror test
 // const mirror:Reflector = new Reflector(
