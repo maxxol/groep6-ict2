@@ -5,8 +5,9 @@ import {placeLightPosts} from "./lightPost";
 import { SpinningCube, LightPoint, spinTheCubes } from "./orbitingCubes";
 import { Skybox, Ground, Pond } from './environment';
 import {loadModels,modelGlobal} from "./modelLoader";
-import{Carousel,carouselCart,moveCarousel,carouselPole,tryToEnterRollerCoaster} from "./Carousel";
-
+import{Carousel,carouselCart,moveCarousel,carouselPole,tryToEnterCarousel} from "./Carousel";
+//import {enterRollerCoaster} from "./rollerCoaster";
+import {callCoordinateConversion} from "./rollerCoaster";
 //------------------------------------------------------------------------------------------------------------------------------------
 
 //scene
@@ -122,10 +123,12 @@ loadModels(scene) //load the skull model
 //     camera.lookAt(115,5,40)
 //     camera.rotation.y += 90;
 // }}
+callCoordinateConversion() //convert the rollerCoasterCoordinates.txt to coordinate objects
 //----------------------------------------------------------------------------------------------------------------
 
 //console.log("(main pre animate)player loaded in at "+player.position.x+" "+player.position.z) //debug
 // Animation loop
+
 const animate = () => {
     requestAnimationFrame(animate); //rendering a frame
     renderer.render(scene, camera);
@@ -140,13 +143,15 @@ const animate = () => {
     spinTheCubes(scene, performance.now(), spinningcube1, spinningcube2, spinningcube3);
 
     moveCarousel(time,carouselCart1,carouselPole1)
-    tryToEnterRollerCoaster(player,carouselCart1,camera)
+    tryToEnterCarousel(player,carouselCart1,camera)
     // moveCoaster(time);
     // enterRollerCoaster()
     //carouselCart1.position.set(115,50,40)
     modelGlobal.rotation.y += 0.04; //rotate skull model
     renderer.setSize(window.innerWidth,window.innerHeight); //changes main.js module to fit in window every frame
 
+
+    //enterRollerCoaster(camera)
 };
 
 animate();

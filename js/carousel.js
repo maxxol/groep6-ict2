@@ -84,7 +84,7 @@ function moveCarousel(time,carouselCart1,carouselCartPole1) {
 
 }
 
-function tryToEnterRollerCoaster(player,CoasterCart,camera){
+function tryToEnterCarousel(player,CoasterCart,camera){
 if(player.position.x >92 && player.position.x<130 && player.position.z>20 && player.position.z<60){
 
     camera.position.set(CoasterCart.position.x,CoasterCart.position.y+2,(CoasterCart.position.z+2))
@@ -93,4 +93,4 @@ if(player.position.x >92 && player.position.x<130 && player.position.z>20 && pla
     camera.rotation.y += 0.4*Math.PI;
 }}
 
-export{Carousel,carouselCart,carouselPole,moveCarousel,tryToEnterRollerCoaster}
+export{Carousel,carouselCart,carouselPole,moveCarousel,tryToEnterCarousel}
