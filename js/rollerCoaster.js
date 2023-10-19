@@ -22,6 +22,8 @@ class CoasterCoordinate { //class for coordinates that represent the roller coas
     }
 }
 
+let coasterCoordinates;
+
 function readAndConvertCoordinatesFromFile(filename) {
 
     return fetch(filename)
@@ -43,7 +45,7 @@ function readAndConvertCoordinatesFromFile(filename) {
                     coordinates.push(coordinate); //adds to list
                 }
             }
-
+            coasterCoordinates = coordinates;
             return coordinates;
         })
         .catch((error) => { //it went wrong
@@ -53,18 +55,21 @@ function readAndConvertCoordinatesFromFile(filename) {
 }
 
 // Usage
+
 export function callCoordinateConversion() { // function to call from main to convert the coordinate file to objects
     const filename = 'js/rollerCoasterCoordinates.txt'; // file path for the coaster coordinates txt file
     readAndConvertCoordinatesFromFile(filename) // calls the conversion function
         .then((coasterCoordinates) => { //debug
-            console.log(coasterCoordinates[1].getX()); // get the x coordinate for debug
+            console.log(coasterCoordinates[10].getX()); // get the x coordinate for debug
         });
 }
 
-// export function enterRollerCoaster(camera){ //WIP function to attach camera to the coaster path
-//     camera.position.set(listOfCoords[counter],6,0)
-//     counter++
-//     if (counter >listOfCoords.length){
-//         counter=0;
-//     }
-// }
+
+let counter =0;
+export function enterRollerCoaster(camera){ //WIP function to attach camera to the coaster path
+    camera.position.set(coasterCoordinates[counter].getX(),coasterCoordinates[counter].getY(),coasterCoordinates[counter].getZ())
+    counter++
+    if (counter >coasterCoordinates.length-1){
+        counter=0;
+    }
+}

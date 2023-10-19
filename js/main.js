@@ -6,7 +6,7 @@ import { SpinningCube, LightPoint, spinTheCubes } from "./orbitingCubes";
 import { Skybox, Ground, Pond } from './environment';
 import {loadModels,modelGlobal} from "./modelLoader";
 import{Carousel,carouselCart,moveCarousel,carouselPole,tryToEnterCarousel} from "./Carousel";
-//import {enterRollerCoaster} from "./rollerCoaster";
+import {enterRollerCoaster} from "./rollerCoaster";
 import {callCoordinateConversion} from "./rollerCoaster";
 //------------------------------------------------------------------------------------------------------------------------------------
 
@@ -145,13 +145,13 @@ const animate = () => {
     moveCarousel(time,carouselCart1,carouselPole1)
     tryToEnterCarousel(player,carouselCart1,camera)
     // moveCoaster(time);
-    // enterRollerCoaster()
+
     //carouselCart1.position.set(115,50,40)
     modelGlobal.rotation.y += 0.04; //rotate skull model
     renderer.setSize(window.innerWidth,window.innerHeight); //changes main.js module to fit in window every frame
+    //console.log("(main animate)player loaded in at "+player.position.x+" "+player.position.z) //debug
 
-
-    //enterRollerCoaster(camera)
+    enterRollerCoaster(camera,player)
 };
 
 animate();
