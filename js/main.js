@@ -72,7 +72,7 @@ const lightP = new LightPoint(scene, spinningcube1.mesh.position.x, spinningcube
 //pathways
 function addPath(x,z,width,depth){
     const geometry = new THREE.BoxGeometry( width, 1, depth );
-    const material = new THREE.MeshPhongMaterial( { color: 0xF0F0F0 } );
+    const material = new THREE.MeshLambertMaterial( { color: 0xF0F0F0 } );
     const path = new THREE.Mesh(geometry, material);
     scene.add(path);
     path.position.set(x,0.1,z)

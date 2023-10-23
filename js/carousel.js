@@ -11,14 +11,12 @@ class Carousel {
 
         //floor cylinder
         this.carouselBottomGeometry = new THREE.CylinderGeometry(20, 20, 1, 40);
-        this.carouselBottomMaterial = new THREE.MeshLambertMaterial({
+        this.carouselBottomMaterial = new THREE.MeshPhongMaterial({
             color: 0x909090,
             map:this.metalTexture,
             emissive: 0x202020, // Adjust the emissive color
             emissiveIntensity: 0.2,
         });
-
-
 
         this.carouselBottomMesh = new THREE.Mesh(this.carouselBottomGeometry,this.carouselBottomMaterial)
         scene.add(this.carouselBottomMesh)
