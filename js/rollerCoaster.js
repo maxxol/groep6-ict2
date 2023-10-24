@@ -23,8 +23,8 @@ class CoasterCoordinate { //class for coordinates that represent the roller coas
 }
 
 let coasterCoordinates;
-
-function readAndConvertCoordinatesFromFile(filename) {
+let coasterCart;
+function readAndConvertCoordinatesFromFile(filename,scene) {
 
     return fetch(filename)
         .then((response) => {
@@ -36,63 +36,86 @@ function readAndConvertCoordinatesFromFile(filename) {
         .then((data) => { //if txt file is found
             const lines = data.split('\n'); //splits the txt file into separate lines
             const coordinates = []; //makes list for all the coordinate objects
-            console.log("defined done")
             for (const line of lines) { //goes through every line of the file
-                console.log("test1")
                 const [x, y, z] = line.trim().split(' ').map(parseFloat); //assign x,y and z, based on a space character separating degrees of freedom
-                console.log("test2")
                 if (!isNaN(x) && !isNaN(y) && !isNaN(z)) { //checks if the split numbers x,y and z are numbers (!isNaN = not not a number)
-                    console.log("test3")
                     const coordinate = new CoasterCoordinate(x, y, z); //calls CoasterCoordinate class for new object
                     coordinates.push(coordinate); //adds to list
-                    console.log("test4")
                 }
             }
             coasterCoordinates = coordinates;
+
+            coasterCart=createCoasterCart(scene)
+            buildTrack(scene)
+
             return coordinates;
         })
         .catch((error) => { //it went wrong
             console.error('Error reading the file:', error); //error msg
             return []; //log empty list
         });
+
 }
 
 // Usage
 
-export function callCoordinateConversion() { // function to call from main to convert the coordinate file to objects
+export function callCoordinateConversion(scene) { // function to call from main to convert the coordinate file to objects
     const filename = 'js/rollerCoasterCoordinates.txt'; // file path for the coaster coordinates txt file
-    readAndConvertCoordinatesFromFile(filename) // calls the conversion function
+    readAndConvertCoordinatesFromFile(filename,scene) // calls the conversion function
         .then((coasterCoordinates) => { //debug
             console.log("poopoopoopoopoo")
             console.log(coasterCoordinates[10])
             console.log(coasterCoordinates[10].getX()); // get the x coordinate for debug
         });
-}
 
-function buildTrack(counter,scene){
+}
+function buildTrack(scene) {
     const geometryTrackPiece = new THREE.BoxGeometry(1, 1, 1);
     const materialTrackPiece = new THREE.MeshPhongMaterial({ color: 0xCCCCCC });
-    const trackPiece = new THREE.Mesh(geometryTrackPiece, materialTrackPiece);
-    try {
-        trackPiece.position.set(coasterCoordinates[counter].getX(),coasterCoordinates[counter].getY()-5,coasterCoordinates[counter].getZ());
 
+    for (let counter = 0; counter < coasterCoordinates.length; counter++) {
+        console.log("coastertest2");
+        try {
+            const trackPiece = new THREE.Mesh(geometryTrackPiece, materialTrackPiece);
+            console.log("coastertest3");
+            trackPiece.position.set(coasterCoordinates[counter].getX(), coasterCoordinates[counter].getY() - 5, coasterCoordinates[counter].getZ());
+            scene.add(trackPiece);
+        } catch (err) {
+            console.log("Error trying to create box for coaster track");
+        }
     }
-    catch (err){
-    }
-    scene.add(trackPiece);
+}
+
+function createCoasterCart(scene) {
+    const geometryCoasterCart = new THREE.BoxGeometry(3, 3, 3);
+    const materialCoasterCart = new THREE.MeshPhongMaterial({color: 0xFF0000});
+    const coasterCart = new THREE.Mesh(geometryCoasterCart, materialCoasterCart);
+    scene.add(coasterCart);
+    return coasterCart;
 }
 
 let counter =0;
+let inCoaster = false; //currently not in coaster
 export function enterRollerCoaster(camera,scene,player) { //WIP function to attach camera to the coaster path
 
     if (player.position.x > 90 && player.position.x < 100 && player.position.z < 2 && player.position.z > -10) {
+
+        if(!inCoaster){ //changes counter to 0 once so coaster always starts at same place when entered
+            counter=0;
+            inCoaster=true; //currently in coaster
+        }
+
         if (counter >coasterCoordinates.length-1){
             counter=0;
         }
-    camera.position.set(coasterCoordinates[counter].getX(),coasterCoordinates[counter].getY(),coasterCoordinates[counter].getZ()+2)
-
-}
-    buildTrack(counter,scene);
+    camera.position.set(coasterCoordinates[counter].getX(),coasterCoordinates[counter].getY(),coasterCoordinates[counter].getZ()+2);
+    coasterCart.position.set(coasterCoordinates[counter].getX(),coasterCoordinates[counter].getY()-4,coasterCoordinates[counter].getZ());
+    }
+    else{
+        counter=0;
+        coasterCart.position.set(coasterCoordinates[counter].getX()-1,coasterCoordinates[counter].getY()-4,coasterCoordinates[counter].getZ());
+        inCoaster=false}
+    //buildTrack(counter,scene);
     counter++
 
 }

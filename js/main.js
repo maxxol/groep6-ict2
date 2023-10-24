@@ -124,7 +124,8 @@ loadModels(scene) //load the skull model
 //     camera.lookAt(115,5,40)
 //     camera.rotation.y += 90;
 // }}
-callCoordinateConversion() //convert the rollerCoasterCoordinates.txt to coordinate objects
+callCoordinateConversion(scene) //convert the rollerCoasterCoordinates.txt to coordinate objects
+//buildTrack(scene)
 //----------------------------------------------------------------------------------------------------------------
 
 //console.log("(main pre animate)player loaded in at "+player.position.x+" "+player.position.z) //debug
@@ -150,8 +151,9 @@ const animate = () => {
     //carouselCart1.position.set(115,50,40)
     modelGlobal.rotation.y += 0.04; //rotate skull model
     renderer.setSize(window.innerWidth,window.innerHeight); //changes main.js module to fit in window every frame
-    console.log("(main animate)player loaded in at "+player.position.x+" "+player.position.z) //debug
+    //console.log("(main animate)player loaded in at "+player.position.x+" "+player.position.z) //debug
 
+    //buildTrack(scene)
     enterRollerCoaster(camera,scene,player)
 };
 
