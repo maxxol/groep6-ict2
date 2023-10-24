@@ -63,9 +63,6 @@ export function callCoordinateConversion(scene) { // function to call from main 
     const filename = 'js/rollerCoasterCoordinates.txt'; // file path for the coaster coordinates txt file
     readAndConvertCoordinatesFromFile(filename,scene) // calls the conversion function
         .then((coasterCoordinates) => { //debug
-            console.log("poopoopoopoopoo")
-            console.log(coasterCoordinates[10])
-            console.log(coasterCoordinates[10].getX()); // get the x coordinate for debug
         });
 
 }
@@ -74,10 +71,8 @@ function buildTrack(scene) {
     const materialTrackPiece = new THREE.MeshPhongMaterial({ color: 0xCCCCCC });
 
     for (let counter = 0; counter < coasterCoordinates.length; counter++) {
-        console.log("coastertest2");
         try {
             const trackPiece = new THREE.Mesh(geometryTrackPiece, materialTrackPiece);
-            console.log("coastertest3");
             trackPiece.position.set(coasterCoordinates[counter].getX(), coasterCoordinates[counter].getY() - 5, coasterCoordinates[counter].getZ());
             scene.add(trackPiece);
         } catch (err) {

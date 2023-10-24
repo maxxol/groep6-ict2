@@ -125,7 +125,6 @@ loadModels(scene) //load the skull model
 //     camera.rotation.y += 90;
 // }}
 callCoordinateConversion(scene) //convert the rollerCoasterCoordinates.txt to coordinate objects
-//buildTrack(scene)
 //----------------------------------------------------------------------------------------------------------------
 
 //console.log("(main pre animate)player loaded in at "+player.position.x+" "+player.position.z) //debug
@@ -153,7 +152,6 @@ const animate = () => {
     renderer.setSize(window.innerWidth,window.innerHeight); //changes main.js module to fit in window every frame
     //console.log("(main animate)player loaded in at "+player.position.x+" "+player.position.z) //debug
 
-    //buildTrack(scene)
     enterRollerCoaster(camera,scene,player)
 };
 
