@@ -60,7 +60,7 @@ function readAndConvertCoordinatesFromFile(filename,scene) {
 // Usage
 
 export function callCoordinateConversion(scene) { // function to call from main to convert the coordinate file to objects
-    const filename = 'js/rollerCoasterCoordinates.txt'; // file path for the coaster coordinates txt file
+    const filename = 'txt_files/rollerCoasterCoordinates.txt'; // file path for the coaster coordinates txt file
     readAndConvertCoordinatesFromFile(filename,scene) // calls the conversion function
         .then((coasterCoordinates) => { //debug
         });
