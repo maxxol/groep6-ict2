@@ -70,7 +70,7 @@ function buildTrack(scene) {
     const geometryTrackPiece = new THREE.BoxGeometry(1, 1, 1);
     const materialTrackPiece = new THREE.MeshPhongMaterial({ color: 0xCCCCCC });
 
-    for (let counter = 0; counter < coasterCoordinates.length; counter++) {
+    for (let counter = 0; counter < coasterCoordinates.length; counter++) { //adds every track piece
         try {
             const trackPiece = new THREE.Mesh(geometryTrackPiece, materialTrackPiece);
             trackPiece.position.set(coasterCoordinates[counter].getX(), coasterCoordinates[counter].getY() - 5, coasterCoordinates[counter].getZ());
@@ -82,16 +82,30 @@ function buildTrack(scene) {
 }
 
 function createCoasterCart(scene) {
-    const geometryCoasterCart = new THREE.BoxGeometry(3, 3, 3);
+    const geometryCoasterCart = new THREE.BoxGeometry(3, 3, 8);
     const materialCoasterCart = new THREE.MeshPhongMaterial({color: 0xFF0000});
     const coasterCart = new THREE.Mesh(geometryCoasterCart, materialCoasterCart);
     scene.add(coasterCart);
     return coasterCart;
 }
 
+function updateCartRotation(coasterCart, counter) {
+    if (counter < coasterCoordinates.length - 1) {
+        const currentPoint = coasterCoordinates[counter];
+        const nextPoint = coasterCoordinates[counter + 1];
+
+
+        const direction = new THREE.Vector3().subVectors(nextPoint, currentPoint).normalize(); // Calculate the direction vector from the current point to the next point
+        const angle = Math.atan2(direction.x, direction.z); // Calculate the angle between the direction vector and the positive z-axis
+        coasterCart.rotation.y = -angle; //set the rotation of the cart
+    }
+}
+
+
+
 let counter =0;
 let inCoaster = false; //currently not in coaster
-export function enterRollerCoaster(camera,scene,player) { //WIP function to attach camera to the coaster path
+export function updateRollerCoaster(camera,scene,player) { //WIP function to attach camera to the coaster path
 
     if (player.position.x > 90 && player.position.x < 100 && player.position.z < 2 && player.position.z > -10) {
 
@@ -110,7 +124,8 @@ export function enterRollerCoaster(camera,scene,player) { //WIP function to atta
         counter=0;
         coasterCart.position.set(coasterCoordinates[counter].getX()-1,coasterCoordinates[counter].getY()-4,coasterCoordinates[counter].getZ());
         inCoaster=false}
-    //buildTrack(counter,scene);
+
+    updateCartRotation(coasterCart,counter)
     counter++
 
 }
