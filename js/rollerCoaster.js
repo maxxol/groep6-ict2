@@ -78,7 +78,7 @@ function buildTrack(scene) {
             const trackPiece = new THREE.Mesh(geometryTrackPiece, materialTrackPiece);
             trackPiece.position.set(coasterCoordinates[counter].getX(), coasterCoordinates[counter].getY() - 5, coasterCoordinates[counter].getZ());
             scene.add(trackPiece);
-            console.log("test")
+            //console.log("test")
         } catch (err) {
             console.log("Error trying to create box for coaster track");
         }
