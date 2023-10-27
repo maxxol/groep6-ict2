@@ -8,6 +8,7 @@ import {loadModels,modelGlobal} from "./modelLoader";
 import{Carousel,carouselCart,moveCarousel,carouselPole,tryToEnterCarousel} from "./Carousel";
 import {updateRollerCoaster} from "./rollerCoaster";
 import {callCoordinateConversion} from "./rollerCoaster";
+import {recordCoasterCoordinates} from "./rollerCoasterTrackRecorder";
 //------------------------------------------------------------------------------------------------------------------------------------
 
 //scene
@@ -129,7 +130,8 @@ callCoordinateConversion(scene) //convert the rollerCoasterCoordinates.txt to co
 
 //console.log("(main pre animate)player loaded in at "+player.position.x+" "+player.position.z) //debug
 // Animation loop
-
+let numberOfRecordedTrackPieces = 500;
+let mainIteration =-200;
 const animate = () => {
     requestAnimationFrame(animate); //rendering a frame
     renderer.render(scene, camera);
@@ -153,6 +155,12 @@ const animate = () => {
     //console.log("(main animate)player loaded in at "+player.position.x+" "+player.position.z) //debug
 
     updateRollerCoaster(camera,scene,player)
+
+    //if(mainIteration<numberOfRecordedTrackPieces && mainIteration>=0){
+    // recordCoasterCoordinates(player,mainIteration,numberOfRecordedTrackPieces)
+    // }
+    // mainIteration++;
+    // console.log(mainIteration)
 };
 
 animate();

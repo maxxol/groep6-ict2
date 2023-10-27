@@ -2,7 +2,7 @@ import * as THREE from 'three'
 
 
 
-class CoasterCoordinate { //class for coordinates that represent the roller coaster path
+export class CoasterCoordinate { //class for coordinates that represent the roller coaster path
     constructor(xCoord, yCoord, zCoord) {
         this.x = xCoord; //assign coords given to variables
         this.y = yCoord;
@@ -46,7 +46,10 @@ function readAndConvertCoordinatesFromFile(filename,scene) {
             coasterCoordinates = coordinates;
 
             coasterCart=createCoasterCart(scene)
-            buildTrack(scene)
+            try {
+                buildTrack(scene)
+            }
+            catch (err){console.log("something went wrong building track")}
 
             return coordinates;
         })
@@ -60,7 +63,8 @@ function readAndConvertCoordinatesFromFile(filename,scene) {
 // Usage
 
 export function callCoordinateConversion(scene) { // function to call from main to convert the coordinate file to objects
-    const filename = 'txt_files/rollerCoasterCoordinates.txt'; // file path for the coaster coordinates txt file
+    //recordedCoasterTrack1, manualCoasterTrack
+    const filename = 'txt_files/manualCoasterTrack.txt'; // file path for the coaster coordinates txt file
     readAndConvertCoordinatesFromFile(filename,scene) // calls the conversion function
         .then((coasterCoordinates) => { //debug
         });
@@ -69,12 +73,12 @@ export function callCoordinateConversion(scene) { // function to call from main 
 function buildTrack(scene) {
     const geometryTrackPiece = new THREE.BoxGeometry(1, 1, 1);
     const materialTrackPiece = new THREE.MeshPhongMaterial({ color: 0xCCCCCC });
-
     for (let counter = 0; counter < coasterCoordinates.length; counter++) { //adds every track piece
         try {
             const trackPiece = new THREE.Mesh(geometryTrackPiece, materialTrackPiece);
             trackPiece.position.set(coasterCoordinates[counter].getX(), coasterCoordinates[counter].getY() - 5, coasterCoordinates[counter].getZ());
             scene.add(trackPiece);
+            console.log("test")
         } catch (err) {
             console.log("Error trying to create box for coaster track");
         }
