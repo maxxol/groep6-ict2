@@ -36,6 +36,7 @@ const controls = {
     moveRight: false,
     moveUp: false,
     interact: false,
+    logResult: false,
     canJump: false,
     prevTime: performance.now(),
     velocity: new THREE.Vector3(),
@@ -44,7 +45,9 @@ const controls = {
 export function checkInteract(){
     return controls.interact
 }
-
+export function checkLogResult(){
+    return controls.logResult
+}
 
 document.addEventListener('keydown', (event) => { //listeners for key presses
     switch (event.code) {
@@ -65,10 +68,14 @@ document.addEventListener('keydown', (event) => { //listeners for key presses
             controls.canJump = false;
             break;
         case 'KeyE': //interact key
-            if (!controls.interact){controls.interact = true; //toggle logic as you should only need to press e once to stay in an attraction
-            break}
-            if (controls.interact){controls.interact = false;
-            break}
+            if (!controls.interact){
+                controls.interact = true; //toggle logic as you should only need to press e once to stay in an attraction
+                break}
+            controls.interact = false; //no else because if interact is true it will break, otherwise it will do this
+            break;
+        case 'KeyL':
+            controls.logResult = true;
+            break;
     }
 });
 
@@ -87,6 +94,9 @@ document.addEventListener('keyup', (event) => { //listeners for keys being unpre
             break;
         case 'KeyD':
             controls.moveRight = false;
+            break;
+        case 'KeyL':
+            controls.logResult = false;
             break;
     }
 });

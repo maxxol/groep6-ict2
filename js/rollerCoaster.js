@@ -63,10 +63,10 @@ function readAndConvertCoordinatesFromFile(filename,scene) {
 // Usage
 
 export function callCoordinateConversion(scene) { // function to call from main to convert the coordinate file to objects
-    //recordedCoasterTrack1, manualCoasterTrack
-    const filename = 'txt_files/manualCoasterTrack.txt'; // file path for the coaster coordinates txt file
+    //recordedCoasterTrack1, recordedCoasterTrack2,manualCoasterTrack
+    const filename = 'txt_files/recordedCoasterTrack2.txt'; // file path for the coaster coordinates txt file
     readAndConvertCoordinatesFromFile(filename,scene) // calls the conversion function
-        .then((coasterCoordinates) => { //debug
+        .then((coasterCoordinates) => { //promise
         });
 
 }
@@ -107,8 +107,8 @@ function updateCartRotation(coasterCart, counter) {
 
 
         const direction = new THREE.Vector3().subVectors(nextPoint, currentPoint).normalize(); // Calculate the direction vector from the current point to the next point
-        const angle = Math.atan2(direction.x, direction.z); // Calculate the angle between the direction vector and the positive z-axis
-        coasterCart.rotation.y = -angle; //set the rotation of the cart
+        coasterCart.rotation.y = Math.atan2(direction.x, direction.z); // Calculate the angle between the direction vector and the positive z-axis and apply it to the cart
+
     }
 }
 

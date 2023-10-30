@@ -1,16 +1,16 @@
 import {CoasterCoordinate} from "./rollerCoaster";
-
+import {checkLogResult} from "./controls";
 
 let listOfRecordedCoordinates = [];
 let stringOfRecordedCoordinates = "";
-export function recordCoasterCoordinates(player,mainIteration,numberOfRecordedTrackPieces){ //function that records player location and transforms it into coordinates
+export function recordCoasterCoordinates(player){ //function that records player location and transforms it into coordinates
     try {
         const recordedCoordinate = new CoasterCoordinate(player.position.x, player.position.y, player.position.z);//create new CoasterCoordinate(see rollerCoaster.js)
         listOfRecordedCoordinates.push(recordedCoordinate) //add coordinate to list of recorded coordinates
-        //console.log("coordinate recorded") //debug
+        //console.log(interact) //debug
     }
     catch (err){console.log("error in recording coordinate")}
-    if (mainIteration === numberOfRecordedTrackPieces-1){
+    if (checkLogResult()){
         for(let y=0;y<listOfRecordedCoordinates.length;y++){ //runs through all the recorded coordinates
             stringOfRecordedCoordinates = stringOfRecordedCoordinates.concat( //turns all the coordinates into one string -
                 // (separate logs for every coordinate are tedious to copy paste due to chrome stating the line -
