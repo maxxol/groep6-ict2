@@ -35,11 +35,15 @@ const controls = {
     moveLeft: false,
     moveRight: false,
     moveUp: false,
-    moveDown: false,
+    interact: false,
     canJump: false,
     prevTime: performance.now(),
     velocity: new THREE.Vector3(),
 };
+
+export function checkInteract(){
+    return controls.interact
+}
 
 
 document.addEventListener('keydown', (event) => { //listeners for key presses
@@ -60,11 +64,15 @@ document.addEventListener('keydown', (event) => { //listeners for key presses
             if (controls.canJump === true) controls.velocity.y += 40;
             controls.canJump = false;
             break;
-        case 'ShiftLeft':
-            controls.moveDown = true;
-            break;
+        case 'KeyE': //interact key
+            if (!controls.interact){controls.interact = true; //toggle logic as you should only need to press e once to stay in an attraction
+            break}
+            if (controls.interact){controls.interact = false;
+            break}
     }
 });
+
+
 
 document.addEventListener('keyup', (event) => { //listeners for keys being unpressed
     switch (event.code) {
@@ -79,9 +87,6 @@ document.addEventListener('keyup', (event) => { //listeners for keys being unpre
             break;
         case 'KeyD':
             controls.moveRight = false;
-            break;
-        case 'ShiftLeft':
-            controls.moveDown = false;
             break;
     }
 });

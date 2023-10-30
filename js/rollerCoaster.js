@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-
+import {checkInteract} from "./controls";
 
 
 export class CoasterCoordinate { //class for coordinates that represent the roller coaster path
@@ -111,7 +111,7 @@ let counter =0;
 let inCoaster = false; //currently not in coaster
 export function updateRollerCoaster(camera,scene,player) { //WIP function to attach camera to the coaster path
 
-    if (player.position.x > 90 && player.position.x < 100 && player.position.z < 2 && player.position.z > -10) {
+    if (player.position.x > 90 && player.position.x < 100 && player.position.z < 2 && player.position.z > -10 && checkInteract()) {
 
         if(!inCoaster){ //changes counter to 0 once so coaster always starts at same place when entered
             counter=0;

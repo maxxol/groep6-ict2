@@ -6,9 +6,9 @@ import { SpinningCube, LightPoint, spinTheCubes } from "./orbitingCubes";
 import { Skybox, Ground, Pond } from './environment';
 import {loadModels,modelGlobal} from "./modelLoader";
 import{Carousel,carouselCart,moveCarousel,carouselPole,tryToEnterCarousel} from "./Carousel";
-import {updateRollerCoaster} from "./rollerCoaster";
-import {callCoordinateConversion} from "./rollerCoaster";
+import {updateRollerCoaster,callCoordinateConversion} from "./rollerCoaster";
 import {recordCoasterCoordinates} from "./rollerCoasterTrackRecorder";
+
 //------------------------------------------------------------------------------------------------------------------------------------
 
 //scene
