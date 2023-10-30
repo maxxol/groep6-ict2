@@ -83,6 +83,13 @@ function buildTrack(scene) {
             console.log("Error trying to create box for coaster track");
         }
     }
+
+    //pad where player enter coaster
+    const geometryStartPad = new THREE.BoxGeometry(10, 1, 12);
+    const materialStartPad = new THREE.MeshPhongMaterial({ color: 0x0000AA });
+    const startPad = new THREE.Mesh(geometryStartPad, materialStartPad);
+    startPad.position.set(85,0.5,-6)
+    scene.add(startPad);
 }
 
 function createCoasterCart(scene) {
@@ -111,7 +118,7 @@ let counter =0;
 let inCoaster = false; //currently not in coaster
 export function updateRollerCoaster(camera,scene,player) { //WIP function to attach camera to the coaster path
 
-    if (player.position.x > 90 && player.position.x < 100 && player.position.z < 2 && player.position.z > -10 && checkInteract()) {
+    if (player.position.x > 80 && player.position.x < 90 && player.position.z < 2 && player.position.z > -10 && checkInteract()) {
 
         if(!inCoaster){ //changes counter to 0 once so coaster always starts at same place when entered
             counter=0;
