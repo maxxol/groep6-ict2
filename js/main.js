@@ -98,7 +98,6 @@ let lastTimestamp = 0;
 // Define a constant frame rate
 const targetFPS = 60;
 const frameInterval = 1000 / targetFPS;
-//let mainiteration =0
 //console.log("(main pre animate)player loaded in at "+player.position.x+" "+player.position.z) //debug
 // Animation loop
 const animate = () => {
@@ -130,13 +129,12 @@ const animate = () => {
         renderer.setSize(window.innerWidth,window.innerHeight); //changes main.js module to fit in window every frame
         //console.log("(main animate)player loaded in at "+player.position.x+" "+player.position.z) //debug
 
-        updateRollerCoaster(camera,scene,player)
-
+        updateRollerCoaster(camera,scene,player) //puts player into roller coaster if conditions are met
+        //uncomment the following code to activate the track recording feature, it is adviseable to make updateRollerCoaster into a comment beforehand to avoid entering the coaster accidently while recording
         // if(checkInteract()){
         //     recordCoasterCoordinates(player)
         // }
-        //mainiteration++
-        //console.log(mainiteration)
+
     }
 
 
