@@ -71,8 +71,11 @@ export function callCoordinateConversion(scene) { // function to call from main 
 
 }
 function buildTrack(scene) {
+
+    const materialSupportBeam = new THREE.MeshLambertMaterial({color:0xEE0000});
+
     const geometryTrackPiece = new THREE.BoxGeometry(1, 1, 1);
-    const materialTrackPiece = new THREE.MeshPhongMaterial({ color: 0xCCCCCC });
+    const materialTrackPiece = new THREE.MeshPhongMaterial({ color: 0xEEEEEE });
     for (let counter = 0; counter < coasterCoordinates.length; counter++) { //adds every track piece
         try {
             const trackPiece = new THREE.Mesh(geometryTrackPiece, materialTrackPiece);
@@ -85,6 +88,17 @@ function buildTrack(scene) {
             //console.log("test")
         } catch (err) {
             console.log("Error trying to create box for coaster track");
+        }
+        if(counter%150===0){
+            try {
+                console.log(counter+" %15 = "+counter%15)
+                const beamHeight = coasterCoordinates[counter].getY()
+                const geometrySupportBeam = new THREE.CylinderGeometry(0.5,0.5,beamHeight)
+                const supportBeam = new THREE.Mesh(geometrySupportBeam,materialSupportBeam);
+                scene.add(supportBeam);
+                supportBeam.position.set(coasterCoordinates[counter].getX(), coasterCoordinates[counter].getY()/2-5, coasterCoordinates[counter].getZ())
+            }
+            catch (err){console.log("Error trying to create support beam")}
         }
     }
 
