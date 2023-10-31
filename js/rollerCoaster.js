@@ -82,7 +82,6 @@ function buildTrack(scene) {
             const nextPoint = coasterCoordinates[counter + 1];
             const direction = new THREE.Vector3().subVectors(nextPoint, currentPoint).normalize(); // Calculate the direction vector from the current point to the next point
             trackPiece.rotation.y = Math.atan2(direction.x, direction.z); // Calculate the angle between the direction vector and the positive z-axis and apply it to the cart
-
             //console.log("test")
         } catch (err) {
             console.log("Error trying to create box for coaster track");

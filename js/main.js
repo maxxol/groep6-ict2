@@ -96,7 +96,7 @@ callCoordinateConversion(scene) //convert the rollerCoasterCoordinates.txt to co
 let lastTimestamp = 0;
 
 // Define a constant frame rate
-const targetFPS = 60;
+const targetFPS = 90;
 const frameInterval = 1000 / targetFPS;
 //console.log("(main pre animate)player loaded in at "+player.position.x+" "+player.position.z) //debug
 // Animation loop
