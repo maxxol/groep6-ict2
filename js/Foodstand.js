@@ -2,11 +2,9 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader';
 
 class Foodstand {
-    constructor(modelPath, textMessage, scene, camera, renderer) {
-        this.modelPath = modelPath; // Path to the 3D model
+    constructor(textMessage, scene, renderer) {
         this.textMessage = textMessage; // Message to display on click
         this.scene = scene; // Three.js scene
-        this.camera = camera; // Three.js camera
         this.renderer = renderer; // Three.js renderer
         this.ramenCount = 0; // Initialize ramen count to 0
 
@@ -17,9 +15,9 @@ class Foodstand {
 
     // Load the 3D model and add it to the scene
     loadModel() {
-        const loader = new GLTFLoader();// Create a new instance of the GLTFLoader to load the 3D model.
-        loader.load(this.modelPath, (gltf) => {
-            this.model = gltf.scene;
+        const loader = new GLTFLoader();
+        loader.load('assets/3d_models/ramen_shop.glb', (gltf) => {
+            this.model = gltf.scene;            // Store the loaded 3D model
             this.model.position.set(87,0,34); // Set the initial position
             this.model.scale.set(0.03,0.03,0.03 )
             this.scene.add(this.model); // Add the model to the scene
@@ -57,9 +55,10 @@ class Foodstand {
 
     // Set up event listeners to detect clicks on the 3D model
     addEventListeners() {
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
+        const raycaster = new THREE.Raycaster();   // Create a raycaster to perform raycasting for 3D interaction
+        const mouse = new THREE.Vector2(); // Create a vector to store mouse coordinates
 
+        // Define the onClick event handler function
         const onClick = (event) => {
             event.preventDefault();
 
@@ -68,11 +67,11 @@ class Foodstand {
             mouse.x = ((event.clientX - canvasBounds.left) / canvasBounds.width) * 2 - 1;
             mouse.y = -((event.clientY - canvasBounds.top) / canvasBounds.height) * 2 + 1;
 
-            raycaster.setFromCamera(mouse, this.camera);
+            raycaster.setFromCamera(mouse, this.camera); // Set the raycaster's origin and direction based on mouse coordinates and camera perspective
 
             // Check for intersections with the model
             const intersects = raycaster.intersectObjects([this.model]);
-
+            // If there are intersections, perform actions
             if (intersects.length > 0) {
                 this.displayTextMessage(); // Show a text message
                 this.addRamenToArray(); // Add 1 to the ramen count and log it
