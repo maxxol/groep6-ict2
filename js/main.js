@@ -6,8 +6,9 @@ import { SpinningCube, LightPoint, spinTheCubes } from "./orbitingCubes";
 import { Skybox, Ground, Pond } from './environment';
 import {loadModels,modelGlobal} from "./modelLoader";
 import{Carousel,carouselCart,moveCarousel,carouselPole,tryToEnterCarousel} from "./Carousel";
-import {enterRollerCoaster} from "./rollerCoaster";
-import {callCoordinateConversion} from "./rollerCoaster";
+import {updateRollerCoaster,callCoordinateConversion} from "./rollerCoaster";
+import {recordCoasterCoordinates} from "./rollerCoasterTrackRecorder";
+import{checkInteract} from "./controls";
 //------------------------------------------------------------------------------------------------------------------------------------
 
 //scene
@@ -88,71 +89,55 @@ addPath(80,5,6,70)
 
 loadModels(scene) //load the skull model
 //--------------------------------------------------------------------------------------------------------------
-//mirror test
-//import {Reflector} from 'three/examples/jsm/objects/Reflector'
-// const mirror:Reflector = new Reflector(
-//     new THREE.PlaneGeometry(2,2),{
-//         color:new THREE.color(0xFFFFFF),
-//         textureWidth:window.innerWidth*window.devicePixelRatio,
-//         textureHeight:window.innerHeight*window.devicePixelRatio,
-//     }
-// )
+//prepare coordinates for rollercoaster
+callCoordinateConversion(scene) //convert the rollerCoasterCoordinates.txt to coordinate objects
 //----------------------------------------------------------------------------------------------------------------
-//coaster test
-// const geometryCoasterCart = new THREE.BoxGeometry( 2, 2, 2 );
-// const materialCoasterCart = new THREE.MeshPhongMaterial( { color: 0xFF8080 } );
-// const CoasterCart = new THREE.Mesh(geometryCoasterCart, materialCoasterCart);
-// scene.add( CoasterCart );
-// CoasterCart.position.set(115,3,40)
-//
-// const radiusCoaster = 15; // Adjust the radius of the circular motion
-// const angularSpeedCoaster = 0.004; // Adjust the speed of rotation
-// function moveCoaster(time) {
-//     // Calculate the current angle based on time and angular speed
-//     const angle = time * angularSpeedCoaster;
-//
-//     // Calculate the positions of spinningcube2 and spinningcube3
-//     const coasterCartX = 115 + radiusCoaster * Math.cos(angle); //center of procesion(spinningcube)
-//     const coasterCartZ = 40 + radiusCoaster * Math.sin(angle);
-//     CoasterCart.lookAt(115,3,40)
-//     CoasterCart.position.set(coasterCartX, 4, coasterCartZ);
-// }
-// function enterRollerCoaster(){
-// if(player.position.x >92 && player.position.x<130 && player.position.z>20 && player.position.z<60){
-//     camera.position.set(CoasterCart.position.x,CoasterCart.position.y+2,CoasterCart.position.z+2)
-//
-//     camera.lookAt(115,5,40)
-//     camera.rotation.y += 90;
-// }}
-callCoordinateConversion() //convert the rollerCoasterCoordinates.txt to coordinate objects
-//----------------------------------------------------------------------------------------------------------------
+// Create a variable to track the last timestamp
+let lastTimestamp = 0;
 
+// Define a constant frame rate
+const targetFPS = 90;
+const frameInterval = 1000 / targetFPS;
 //console.log("(main pre animate)player loaded in at "+player.position.x+" "+player.position.z) //debug
 // Animation loop
-
 const animate = () => {
-    requestAnimationFrame(animate); //rendering a frame
-    renderer.render(scene, camera);
-
     const time = performance.now();
     const delta = (time - controls.prevTime) / 1000;
+    requestAnimationFrame(animate); //rendering a frame
 
-    updateControls(camera,time,delta);
-    camera.position.set(player.position.x,player.position.y+4.6,player.position.z)
+    const elapsed = time - lastTimestamp;
 
-    // Rotate the majestic cube of death
-    spinTheCubes(scene, performance.now(), spinningcube1, spinningcube2, spinningcube3);
+    // If enough time has passed, render the frame
+    if (elapsed >= frameInterval) {
 
-    moveCarousel(time,carouselCart1,carouselPole1)
-    tryToEnterCarousel(player,carouselCart1,camera)
-    // moveCoaster(time);
 
-    //carouselCart1.position.set(115,50,40)
-    modelGlobal.rotation.y += 0.04; //rotate skull model
-    renderer.setSize(window.innerWidth,window.innerHeight); //changes main.js module to fit in window every frame
-    //console.log("(main animate)player loaded in at "+player.position.x+" "+player.position.z) //debug
+        renderer.render(scene, camera);
 
-    //enterRollerCoaster(camera,player)
+        lastTimestamp = time; // Store the current timestamp as the last timestamp
+
+        updateControls(camera,time,delta);
+        camera.position.set(player.position.x,player.position.y+4.6,player.position.z)
+
+        spinTheCubes(scene, performance.now(), spinningcube1, spinningcube2, spinningcube3); // Rotate the majestic cube of death
+
+        moveCarousel(time,carouselCart1,carouselPole1)
+        tryToEnterCarousel(player,carouselCart1,camera)
+        // moveCoaster(time);
+
+
+        modelGlobal.rotation.y += 0.04; //rotate skull model
+        renderer.setSize(window.innerWidth,window.innerHeight); //changes main.js module to fit in window every frame
+        //console.log("(main animate)player loaded in at "+player.position.x+" "+player.position.z) //debug
+
+        updateRollerCoaster(camera,scene,player) //puts player into roller coaster if conditions are met
+        //uncomment the following code to activate the track recording feature, it is adviseable to make updateRollerCoaster into a comment beforehand to avoid entering the coaster accidently while recording
+        // if(checkInteract()){
+        //     recordCoasterCoordinates(player)
+        // }
+
+    }
+
+
 };
 
 animate();
