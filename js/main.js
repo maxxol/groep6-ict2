@@ -3,12 +3,14 @@ import * as THREE from 'three';
 import controls, {loadPlayer, getPlayer,updateControls } from "./controls"
 import {placeLightPosts} from "./lightPost";
 import { SpinningCube, LightPoint, spinTheCubes } from "./orbitingCubes";
+import  {Foodstand} from './Foodstand'
 import { Skybox, Ground, Pond } from './environment';
 import {loadModels,modelGlobal} from "./modelLoader";
 import{Carousel,carouselCart,moveCarousel,carouselPole,tryToEnterCarousel} from "./Carousel";
 import {updateRollerCoaster,callCoordinateConversion} from "./rollerCoaster";
 import {recordCoasterCoordinates} from "./rollerCoasterTrackRecorder";
 import{checkInteract} from "./controls";
+
 //------------------------------------------------------------------------------------------------------------------------------------
 
 //scene
@@ -87,7 +89,24 @@ addPath(80,5,6,70)
 //------------------------------------------------------------------------------------------------------------------------------------
 //modelLoader.js
 
-loadModels(scene) //load the skull model
+// loading tree models
+const tree1 = new Tree(scene, new THREE.Vector3(87, 0, 54));
+const tree2 = new Tree(scene, new THREE.Vector3(87, 0, 28));
+const tree3 = new Tree(scene, new THREE.Vector3(47, 0, -10));
+const tree4 = new Tree(scene, new THREE.Vector3(47, 0, 54));
+
+// loading ramen foodstand
+const textMessage = 'Added ramen!';
+const foodstand = new Foodstand(textMessage,scene,renderer);
+
+// Create multiple lightposts
+const lightpost1 = new Lightpost(scene, new THREE.Vector3(-5, 0, 3));
+const lightpost2 = new Lightpost(scene, new THREE.Vector3(-5, 0, -8));
+const lightpost3 = new Lightpost(scene, new THREE.Vector3(55, 0, 0));
+const lightpost4 = new Lightpost(scene, new THREE.Vector3(55, 0, 25));
+
+
+
 //--------------------------------------------------------------------------------------------------------------
 //prepare coordinates for rollercoaster
 callCoordinateConversion(scene) //convert the rollerCoasterCoordinates.txt to coordinate objects
