@@ -18,8 +18,8 @@ class Foodstand {
         const loader = new GLTFLoader();
         loader.load('assets/3d_models/ramen_shop.glb', (gltf) => {
             this.model = gltf.scene;            // Store the loaded 3D model
-            this.model.position.set(87,0,34); // Set the initial position
-            this.model.scale.set(0.03,0.03,0.03 )
+            this.model.position.set(87,0,-17); // Set the initial position
+            this.model.scale.set(0.06,0.06,0.06 )
             this.scene.add(this.model); // Add the model to the scene
         });
     }

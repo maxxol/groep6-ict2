@@ -33,9 +33,9 @@ const player = getPlayer();
 //---------------------------------------------------------------------------------------------------------------
 //lighting
 
-const lightD = new THREE.DirectionalLight(0xA0A0A0, 200)
+const lightD = new THREE.DirectionalLight(0xA0A0A0, 10)
 scene.add(lightD)
-lightD.position.set(100,1,100)
+lightD.position.set(1,1,1)
 
 const lightAmbient = new THREE.AmbientLight(0xFFFFFF,0.5)
 scene.add(lightAmbient)

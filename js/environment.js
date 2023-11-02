@@ -79,7 +79,7 @@ class Pond {
 
         //torus around side
         this.pondRockGeometry = new THREE.TorusGeometry( radiusTop+1, 1.1, 16, 50 );
-        this.pondRockMaterial = new THREE.MeshBasicMaterial( {
+        this.pondRockMaterial = new THREE.MeshLambertMaterial( {
             color: 0x909090,
             map: this.rockShoreTexture
         });
