@@ -137,7 +137,7 @@ let counter =0;
 let inCoaster = false; //currently not in coaster
 export function updateRollerCoaster(camera,scene,player) { //WIP function to attach camera to the coaster path
     if (player.position.x > 60 && player.position.x < 70 && player.position.z < 35 && player.position.z > 25 && checkInteract()) {
-
+        camera.fov = 100
         if(!inCoaster){ //changes counter to 0 once so coaster always starts at same place when entered
             counter=0;
             inCoaster=true; //currently in coaster
@@ -152,9 +152,11 @@ export function updateRollerCoaster(camera,scene,player) { //WIP function to att
     else{
         counter=0;
         coasterCart.position.set(coasterCoordinates[counter].getX()-1,coasterCoordinates[counter].getY()-4,coasterCoordinates[counter].getZ());
-        inCoaster=false}
+        inCoaster=false
+        camera.fov = 75}
 
     updateCartRotation(coasterCart,counter)
+
     counter++
 
 }
