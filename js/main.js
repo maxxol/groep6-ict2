@@ -94,7 +94,7 @@ addPath(99,30,60,6) // path to coaster
 loadModels(scene) //load the skull model
 //--------------------------------------------------------------------------------------------------------------
 //prepare coordinates for rollercoaster
-//callCoordinateConversion(scene) //convert the rollerCoasterCoordinates.txt to coordinate objects
+callCoordinateConversion(scene) //convert the rollerCoasterCoordinates.txt to coordinate objects
 //----------------------------------------------------------------------------------------------------------------
 // Create a variable to track the last timestamp
 let lastTimestamp = 0;
@@ -137,8 +137,6 @@ const animate = () => {
         // }
 
     }
-
-
 };
 
 animate();
