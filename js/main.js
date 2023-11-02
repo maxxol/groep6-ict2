@@ -1,16 +1,15 @@
 import * as THREE from 'three';
 
 import controls, {loadPlayer, getPlayer,updateControls } from "./controls"
-import {placeLightPosts} from "./lightPost";
 import { SpinningCube, LightPoint, spinTheCubes } from "./orbitingCubes";
 import  {Foodstand} from './Foodstand'
-import { Skybox, Ground, Pond } from './environment';
+import { Skybox, Ground, Pond,Tree,Lightpost } from './environment';
 import {loadModels} from "./modelLoader";
 import{Carousel,carouselCart,moveCarousel,carouselPole,tryToEnterCarousel} from "./Carousel";
 import {updateRollerCoaster,callCoordinateConversion} from "./rollerCoaster";
 import {recordCoasterCoordinates} from "./rollerCoasterTrackRecorder";
 import{checkInteract} from "./controls";
-
+import {loadTreesFromTextFile} from "./environment";
 //------------------------------------------------------------------------------------------------------------------------------------
 
 //scene
@@ -34,9 +33,9 @@ const player = getPlayer();
 //---------------------------------------------------------------------------------------------------------------
 //lighting
 
-const lightD = new THREE.DirectionalLight(0xA0A0A0, 200)
+const lightD = new THREE.DirectionalLight(0xA0A0A0, 10)
 scene.add(lightD)
-lightD.position.set(100,1,100)
+lightD.position.set(1,1,1)
 
 const lightAmbient = new THREE.AmbientLight(0xFFFFFF,0.5)
 scene.add(lightAmbient)
@@ -52,11 +51,6 @@ const pond = new Pond(scene,15,5,0.5,32,70,70)
 import {buildWalls} from "./walls";
 
 buildWalls(scene);
-
-//-----------------------------------------------------------------------------------------------------------------
-//lightPost.js
-
-placeLightPosts(scene);
 
 //-----------------------------------------------------------------------------------------------------------------
 //Carousel.js
@@ -92,24 +86,32 @@ addPath(99,30,60,6) // path to coaster
 
 //------------------------------------------------------------------------------------------------------------------------------------
 //modelLoader.js
-
+const filePath = 'txt_files/treeLocations.txt';
+loadTreesFromTextFile(scene,filePath)
 // loading tree models
-const tree1 = new Tree(scene, new THREE.Vector3(87, 0, 54));
-const tree2 = new Tree(scene, new THREE.Vector3(87, 0, 28));
-const tree3 = new Tree(scene, new THREE.Vector3(47, 0, -10));
-const tree4 = new Tree(scene, new THREE.Vector3(47, 0, 54));
+
 
 // loading ramen foodstand
 const textMessage = 'Added ramen!';
 const foodstand = new Foodstand(textMessage,scene,renderer);
 
 // Create multiple lightposts
-const lightpost1 = new Lightpost(scene, new THREE.Vector3(-5, 0, 3));
-const lightpost2 = new Lightpost(scene, new THREE.Vector3(-5, 0, -8));
-const lightpost3 = new Lightpost(scene, new THREE.Vector3(55, 0, 0));
-const lightpost4 = new Lightpost(scene, new THREE.Vector3(55, 0, 25));
-
-
+const lightpost1 = new Lightpost(scene, new THREE.Vector3(10, 0, 4));
+const lightpost2 = new Lightpost(scene, new THREE.Vector3(10, 0, -10));
+const lightpost3 = new Lightpost(scene, new THREE.Vector3(40, 0, 4));
+const lightpost4 = new Lightpost(scene, new THREE.Vector3(40, 0, -10));
+const lightpost5 = new Lightpost(scene, new THREE.Vector3(120, 0, 4));
+const lightpost6 = new Lightpost(scene, new THREE.Vector3(120, 0, -10));
+const lightpost7 = new Lightpost(scene, new THREE.Vector3(120, 0, 24));
+const lightpost8 = new Lightpost(scene, new THREE.Vector3(120, 0, -44));
+const lightpost9 = new Lightpost(scene, new THREE.Vector3(80, 0, 24));
+// Lights at opening path
+// lightPosts.create(10, 4);
+// lightPosts.create(10, -10);
+//
+// // Light at spinning cubes
+// lightPosts.create(40, 4);
+// lightPosts.create(40, -10);
 
 //--------------------------------------------------------------------------------------------------------------
 //prepare coordinates for rollercoaster

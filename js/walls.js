@@ -9,7 +9,7 @@ class Wall{
         this.wallTexture.repeat.set(wallLength/10, 1);
 
         this.wallGeometry = new THREE.BoxGeometry(1,13,wallLength);
-        this.wallMaterial = new THREE.MeshBasicMaterial({color:0x808080,map: this.wallTexture});
+        this.wallMaterial = new THREE.MeshLambertMaterial({color:0x808080,map: this.wallTexture});
         this.wall = new THREE.Mesh(this.wallGeometry,this.wallMaterial)
         scene.add(this.wall);
         this.wall.position.set(positionX,6,positionZ)

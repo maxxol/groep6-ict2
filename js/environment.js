@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader';
+import {CoasterCoordinate} from "./rollerCoaster";
+import {normalMap} from "three/nodes";
 
 
 class Skybox {
@@ -18,8 +20,15 @@ class Ground {
         this.texture.wrapS = THREE.RepeatWrapping;
         this.texture.wrapT = THREE.RepeatWrapping;
         this.texture.repeat.set(50, 50);
+
+        this.normalMapGrass = new THREE.TextureLoader().load("assets/textures/ground/normalMapGrass.jpg")
+        this.normalMapGrass.wrapS = THREE.RepeatWrapping;
+        this.normalMapGrass.wrapT = THREE.RepeatWrapping;
+        this.normalMapGrass.repeat.set(100, 100);
+
         this.geometry = new THREE.BoxGeometry(size.x, size.y, size.z);
-        this.material = new THREE.MeshLambertMaterial({ map: this.texture });
+        this.material = new THREE.MeshLambertMaterial({ normalMap:this.normalMapGrass, map:this.texture});
+        this.material.normalScale.set(0.1,0.1)
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         scene.add(this.mesh);
         this.mesh.position.y=-0.2;
@@ -70,7 +79,7 @@ class Pond {
 
         //torus around side
         this.pondRockGeometry = new THREE.TorusGeometry( radiusTop+1, 1.1, 16, 50 );
-        this.pondRockMaterial = new THREE.MeshBasicMaterial( {
+        this.pondRockMaterial = new THREE.MeshLambertMaterial( {
             color: 0x909090,
             map: this.rockShoreTexture
         });
@@ -99,6 +108,27 @@ class Tree {
         }
 }
 
+export function loadTreesFromTextFile(scene, filePath) {
+    const loader = new THREE.FileLoader();
+
+    loader.load(filePath, (data) => {
+        const lines = data.split('\n');
+
+        for (const line of lines) {
+            const parts = line.trim().split(' ');
+
+            if (parts.length === 3) {
+                const x = parseFloat(parts[0]);
+                const y = parseFloat(parts[1]);
+                const z = parseFloat(parts[2]);
+
+                const tree = new Tree(scene, new THREE.Vector3(x, y, z));
+            }
+        }
+    });
+}
+
+
 class Lightpost {
     constructor(scene, position) {
         this.scene = scene; // Three.js scene
@@ -126,5 +156,5 @@ class Lightpost {
         this.scene.add(pointLight); // Add the light to the scene
     }
 }
-export { Skybox, Ground,Tree, Lightpost};
+export { Skybox, Ground,Tree, Lightpost,Pond};
 
