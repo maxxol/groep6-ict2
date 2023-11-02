@@ -100,8 +100,11 @@ const lightpost1 = new Lightpost(scene, new THREE.Vector3(10, 0, 4));
 const lightpost2 = new Lightpost(scene, new THREE.Vector3(10, 0, -10));
 const lightpost3 = new Lightpost(scene, new THREE.Vector3(40, 0, 4));
 const lightpost4 = new Lightpost(scene, new THREE.Vector3(40, 0, -10));
-
-
+const lightpost5 = new Lightpost(scene, new THREE.Vector3(120, 0, 4));
+const lightpost6 = new Lightpost(scene, new THREE.Vector3(120, 0, -10));
+const lightpost7 = new Lightpost(scene, new THREE.Vector3(120, 0, 24));
+const lightpost8 = new Lightpost(scene, new THREE.Vector3(120, 0, -44));
+const lightpost9 = new Lightpost(scene, new THREE.Vector3(80, 0, 24));
 // Lights at opening path
 // lightPosts.create(10, 4);
 // lightPosts.create(10, -10);
