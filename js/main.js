@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 
 import controls, {loadPlayer, getPlayer,updateControls } from "./controls"
-import {placeLightPosts} from "./lightPost";
 import { SpinningCube, LightPoint, spinTheCubes } from "./orbitingCubes";
 import  {Foodstand} from './Foodstand'
 import { Skybox, Ground, Pond,Tree,Lightpost } from './environment';
@@ -54,11 +53,6 @@ import {buildWalls} from "./walls";
 buildWalls(scene);
 
 //-----------------------------------------------------------------------------------------------------------------
-//lightPost.js
-
-placeLightPosts(scene);
-
-//-----------------------------------------------------------------------------------------------------------------
 //Carousel.js
 const carousel1 = new Carousel(scene,50,-50);
 const carouselCart1 = carouselCart(scene);
@@ -104,12 +98,19 @@ const textMessage = 'Added ramen!';
 const foodstand = new Foodstand(textMessage,scene,renderer);
 
 // Create multiple lightposts
-const lightpost1 = new Lightpost(scene, new THREE.Vector3(-5, 0, 3));
-const lightpost2 = new Lightpost(scene, new THREE.Vector3(-5, 0, -8));
-const lightpost3 = new Lightpost(scene, new THREE.Vector3(55, 0, 0));
-const lightpost4 = new Lightpost(scene, new THREE.Vector3(55, 0, 25));
+const lightpost1 = new Lightpost(scene, new THREE.Vector3(10, 0, 4));
+const lightpost2 = new Lightpost(scene, new THREE.Vector3(10, 0, -10));
+const lightpost3 = new Lightpost(scene, new THREE.Vector3(40, 0, 4));
+const lightpost4 = new Lightpost(scene, new THREE.Vector3(40, 0, -10));
 
 
+// Lights at opening path
+// lightPosts.create(10, 4);
+// lightPosts.create(10, -10);
+//
+// // Light at spinning cubes
+// lightPosts.create(40, 4);
+// lightPosts.create(40, -10);
 
 //--------------------------------------------------------------------------------------------------------------
 //prepare coordinates for rollercoaster
