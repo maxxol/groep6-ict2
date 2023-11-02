@@ -9,7 +9,7 @@ import{Carousel,carouselCart,moveCarousel,carouselPole,tryToEnterCarousel} from 
 import {updateRollerCoaster,callCoordinateConversion} from "./rollerCoaster";
 import {recordCoasterCoordinates} from "./rollerCoasterTrackRecorder";
 import{checkInteract} from "./controls";
-
+import {loadTreesFromTextFile} from "./environment";
 //------------------------------------------------------------------------------------------------------------------------------------
 
 //scene
@@ -86,12 +86,10 @@ addPath(99,30,60,6) // path to coaster
 
 //------------------------------------------------------------------------------------------------------------------------------------
 //modelLoader.js
-
+const filePath = 'txt_files/treeLocations.txt';
+loadTreesFromTextFile(scene,filePath)
 // loading tree models
-const tree1 = new Tree(scene, new THREE.Vector3(87, 0, 54));
-const tree2 = new Tree(scene, new THREE.Vector3(87, 0, 28));
-const tree3 = new Tree(scene, new THREE.Vector3(47, 0, -10));
-const tree4 = new Tree(scene, new THREE.Vector3(47, 0, 54));
+
 
 // loading ramen foodstand
 const textMessage = 'Added ramen!';
