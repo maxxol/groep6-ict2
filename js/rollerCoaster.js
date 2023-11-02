@@ -64,7 +64,7 @@ function readAndConvertCoordinatesFromFile(filename,scene) {
 
 export function callCoordinateConversion(scene) { // function to call from main to convert the coordinate file to objects
     //recordedCoasterTrack1, recordedCoasterTrack2,manualCoasterTrack
-    const filename = 'txt_files/recordedCoasterTrack2.txt'; // file path for the coaster coordinates txt file
+    const filename = 'txt_files/recordedCoasterTrack3.txt'; // file path for the coaster coordinates txt file
     readAndConvertCoordinatesFromFile(filename,scene) // calls the conversion function
         .then((coasterCoordinates) => { //promise
         });
@@ -78,20 +78,21 @@ function buildTrack(scene) {
     const materialTrackPiece = new THREE.MeshPhongMaterial({ color: 0xEEEEEE });
     for (let counter = 0; counter < coasterCoordinates.length; counter++) { //adds every track piece
         try {
-            const trackPiece = new THREE.Mesh(geometryTrackPiece, materialTrackPiece);
-            trackPiece.position.set(coasterCoordinates[counter].getX(), coasterCoordinates[counter].getY() - 5, coasterCoordinates[counter].getZ());
-            scene.add(trackPiece);
-            const currentPoint = coasterCoordinates[counter];
-            const nextPoint = coasterCoordinates[counter + 1];
-            const direction = new THREE.Vector3().subVectors(nextPoint, currentPoint).normalize(); // Calculate the direction vector from the current point to the next point
-            trackPiece.rotation.y = Math.atan2(direction.x, direction.z); // Calculate the angle between the direction vector and the positive z-axis and apply it to the cart
-            //console.log("test")
-        } catch (err) {
+
+                const trackPiece = new THREE.Mesh(geometryTrackPiece, materialTrackPiece);
+                trackPiece.position.set(coasterCoordinates[counter].getX(), coasterCoordinates[counter].getY() - 5, coasterCoordinates[counter].getZ());
+                scene.add(trackPiece);
+                const currentPoint = coasterCoordinates[counter];
+                const nextPoint = coasterCoordinates[counter + 1];
+                const direction = new THREE.Vector3().subVectors(nextPoint, currentPoint).normalize(); // Calculate the direction vector from the current point to the next point
+                trackPiece.rotation.y = Math.atan2(direction.x, direction.z); // Calculate the angle between the direction vector and the positive z-axis and apply it to the cart
+
+            } catch (err) {
             console.log("Error trying to create box for coaster track");
         }
-        if(counter%150===0){
+        if(counter%100===0){
             try {
-                console.log(counter+" %15 = "+counter%15)
+                //console.log(counter+" %15 = "+counter%15)
                 const beamHeight = coasterCoordinates[counter].getY()
                 const geometrySupportBeam = new THREE.CylinderGeometry(0.5,0.5,beamHeight)
                 const supportBeam = new THREE.Mesh(geometrySupportBeam,materialSupportBeam);
@@ -106,7 +107,7 @@ function buildTrack(scene) {
     const geometryStartPad = new THREE.BoxGeometry(10, 1, 12);
     const materialStartPad = new THREE.MeshPhongMaterial({ color: 0x0000AA });
     const startPad = new THREE.Mesh(geometryStartPad, materialStartPad);
-    startPad.position.set(85,0.5,-6)
+    startPad.position.set(65,0.5,30)
     scene.add(startPad);
 }
 
@@ -135,8 +136,7 @@ function updateCartRotation(coasterCart, counter) {
 let counter =0;
 let inCoaster = false; //currently not in coaster
 export function updateRollerCoaster(camera,scene,player) { //WIP function to attach camera to the coaster path
-
-    if (player.position.x > 80 && player.position.x < 90 && player.position.z < 2 && player.position.z > -10 && checkInteract()) {
+    if (player.position.x > 60 && player.position.x < 70 && player.position.z < 35 && player.position.z > 25 && checkInteract()) {
 
         if(!inCoaster){ //changes counter to 0 once so coaster always starts at same place when entered
             counter=0;

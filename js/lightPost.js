@@ -39,14 +39,6 @@ function placeLightPosts(scene){
     lightPosts.create(40, 4);
     lightPosts.create(40, -10);
 
-// Lights at skull
-    lightPosts.create(40, 47);
-    lightPosts.create(54, 47);
-    lightPosts.create(54, 33);
-
-//lights at coaster test
-    lightPosts.create(90,47);
-    lightPosts.create(90,33);
 
 }
 export { placeLightPosts };

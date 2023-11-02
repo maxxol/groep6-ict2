@@ -5,7 +5,7 @@ import {placeLightPosts} from "./lightPost";
 import { SpinningCube, LightPoint, spinTheCubes } from "./orbitingCubes";
 import  {Foodstand} from './Foodstand'
 import { Skybox, Ground, Pond } from './environment';
-import {loadModels,modelGlobal} from "./modelLoader";
+import {loadModels} from "./modelLoader";
 import{Carousel,carouselCart,moveCarousel,carouselPole,tryToEnterCarousel} from "./Carousel";
 import {updateRollerCoaster,callCoordinateConversion} from "./rollerCoaster";
 import {recordCoasterCoordinates} from "./rollerCoasterTrackRecorder";
@@ -60,15 +60,15 @@ placeLightPosts(scene);
 
 //-----------------------------------------------------------------------------------------------------------------
 //Carousel.js
-const carousel1 = new Carousel(scene,115,40);
+const carousel1 = new Carousel(scene,50,-50);
 const carouselCart1 = carouselCart(scene);
 const carouselPole1 = carouselPole(scene);
 //------------------------------------------------------------------------------------------------------------------
 //OrbitingCubes.js
 
-const spinningcube1 = new SpinningCube(scene, 55, 5, -3, 0xF0ff00, 2, "MeshBasicMaterial");
-const spinningcube2 = new SpinningCube(scene, 55, 5, -2.8, 0xFF8080, 1, "MeshPhongMaterial");
-const spinningcube3 = new SpinningCube(scene, 55, 5, -2.8, 0x00FFFF, 1, "MeshPhongMaterial");
+const spinningcube1 = new SpinningCube(scene, 60, 5, -3, 0xF0ff00, 2, "MeshBasicMaterial");
+const spinningcube2 = new SpinningCube(scene, 60, 5, -2.8, 0xFF8080, 1, "MeshPhongMaterial");
+const spinningcube3 = new SpinningCube(scene, 60, 5, -2.8, 0x00FFFF, 1, "MeshPhongMaterial");
 const lightP = new LightPoint(scene, spinningcube1.mesh.position.x, spinningcube1.mesh.position.y, spinningcube1.mesh.position.z, 0xFFFFFF, 100);
 
 //------------------------------------------------------------------------------------------------------------------------------------
@@ -80,11 +80,15 @@ function addPath(x,z,width,depth){
     scene.add(path);
     path.position.set(x,0.1,z)
 }
-addPath(25,-3,50,6)
-addPath(47,25,6,50)
-addPath(70,40,50,6)
-addPath(115,40,40,40)
-addPath(80,5,6,70)
+addPath(25,-3,50,6) //spawn path forward
+addPath(47,-3,6,30) //path fork in front of spinning cubes
+addPath(60,-15 ,30,6) //left path round cube
+addPath(60,9,30,6) //right path round cube
+addPath(72,-3,6,30) //path fork behind cube
+addPath(99,-3,60,6) // path forward behind cube
+addPath(126,-10,6,80) // path fork at hind wall
+addPath(99,-50,60,6)// path to carousel
+addPath(99,30,60,6) // path to coaster
 
 //------------------------------------------------------------------------------------------------------------------------------------
 //modelLoader.js
@@ -141,10 +145,7 @@ const animate = () => {
 
         moveCarousel(time,carouselCart1,carouselPole1)
         tryToEnterCarousel(player,carouselCart1,camera)
-        // moveCoaster(time);
 
-
-        modelGlobal.rotation.y += 0.04; //rotate skull model
         renderer.setSize(window.innerWidth,window.innerHeight); //changes main.js module to fit in window every frame
         //console.log("(main animate)player loaded in at "+player.position.x+" "+player.position.z) //debug
 
@@ -155,8 +156,6 @@ const animate = () => {
         // }
 
     }
-
-
 };
 
 animate();
