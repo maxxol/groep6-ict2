@@ -25,13 +25,7 @@ class LightPoint {
 
 const radius = 5;
 const angularSpeed = 0.004;
-function createTheCubes(scene){
-    const spinningcube1 = new SpinningCube(scene, 55, 5, -3, 0xF0ff00, 2, "MeshBasicMaterial");
-    const spinningcube2 = new SpinningCube(scene, 55, 5, -2.8, 0xFF8080, 1, "MeshPhongMaterial");
-    const spinningcube3 = new SpinningCube(scene, 55, 5, -2.8, 0x00FFFF, 1, "MeshPhongMaterial");
-    const lightP = new LightPoint(scene, spinningcube1.mesh.position.x, spinningcube1.mesh.position.y, spinningcube1.mesh.position.z, 0xFFFFFF, 100);
 
-}
 function spinTheCubes(scene, time, spinningcube1, spinningcube2, spinningcube3) {
 
     const angle = time * angularSpeed;

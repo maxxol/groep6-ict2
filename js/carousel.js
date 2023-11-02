@@ -48,7 +48,7 @@ class Carousel {
         const materialCarouselCart = new THREE.MeshPhongMaterial( { color: 0xFF8080 } );
         const carouselCart = new THREE.Mesh(geometryCarouselCart, materialCarouselCart);
         scene.add( carouselCart );
-        carouselCart.position.set(115,3,40)
+        carouselCart.position.set(50,3,-50)
         return carouselCart;
     }
 
@@ -58,7 +58,7 @@ class Carousel {
         const carouselCartPoleMaterial = new THREE.MeshLambertMaterial({color: 0x909090,});
         const carouselCartPoleMesh = new THREE.Mesh( carouselCartPoleGeometry,  carouselCartPoleMaterial)
         scene.add(carouselCartPoleMesh)
-        carouselCartPoleMesh.position.set(115, 10, 40)
+        carouselCartPoleMesh.position.set(50, 10, -50)
         return carouselCartPoleMesh
     }
 
@@ -71,23 +71,23 @@ function moveCarousel(time,carouselCart1,carouselCartPole1) {
     const angle = time * angularSpeedCoaster;
 
     // Calculate the positions of spinningcube2 and spinningcube3
-    const carouselCartX = 115 + radiusCoaster * Math.cos(angle); //center of procesion(spinningcube)
-    const carouselCartZ = 40 + radiusCoaster * Math.sin(angle);
-    carouselCart1.lookAt(115,4,40)
+    const carouselCartX = 50 + radiusCoaster * Math.cos(angle); //center of procesion(spinningcube)
+    const carouselCartZ = -50 + radiusCoaster * Math.sin(angle);
+    carouselCart1.lookAt(50,4,-50)
     carouselCart1.position.set(carouselCartX, 4, carouselCartZ);
 
-    const carouselPoleX = 115 + radiusPole * Math.cos(angle); //center of procesion(spinningcube)
-    const carouselPoleZ = 40 + radiusPole * Math.sin(angle);
+    const carouselPoleX = 50 + radiusPole * Math.cos(angle); //center of procesion(spinningcube)
+    const carouselPoleZ = -50 + radiusPole * Math.sin(angle);
     carouselCartPole1.position.set(carouselPoleX,8,carouselPoleZ)
 
 }
 
 function tryToEnterCarousel(player,CoasterCart,camera){
-if(player.position.x >92 && player.position.x<130 && player.position.z>20 && player.position.z<60){
+if(player.position.x >30 && player.position.x<65 && player.position.z>-65 && player.position.z<-35){
 
     camera.position.set(CoasterCart.position.x,CoasterCart.position.y+2,(CoasterCart.position.z+2))
 
-    camera.lookAt(115,5,40)
+    camera.lookAt(50,5,-50)
     camera.rotation.y += 0.4*Math.PI;
 }}
 
