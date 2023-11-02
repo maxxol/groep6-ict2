@@ -4,7 +4,7 @@ import controls, {loadPlayer, getPlayer,updateControls } from "./controls"
 import {placeLightPosts} from "./lightPost";
 import { SpinningCube, LightPoint, spinTheCubes } from "./orbitingCubes";
 import  {Foodstand} from './Foodstand'
-import { Skybox, Ground, Pond } from './environment';
+import { Skybox, Ground, Pond,Tree,Lightpost } from './environment';
 import {loadModels} from "./modelLoader";
 import{Carousel,carouselCart,moveCarousel,carouselPole,tryToEnterCarousel} from "./Carousel";
 import {updateRollerCoaster,callCoordinateConversion} from "./rollerCoaster";

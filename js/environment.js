@@ -126,5 +126,5 @@ class Lightpost {
         this.scene.add(pointLight); // Add the light to the scene
     }
 }
-export { Skybox, Ground,Tree, Lightpost};
+export { Skybox, Ground,Tree, Lightpost,Pond};
 
