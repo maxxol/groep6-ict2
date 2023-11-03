@@ -93,7 +93,7 @@ loadTreesFromTextFile(scene,filePath)
 
 // loading ramen foodstand
 const textMessage = 'Added ramen!';
-const foodstand = new Foodstand(textMessage,scene,renderer);
+const foodstand = new Foodstand(textMessage,scene,renderer,camera);
 
 // Create multiple lightposts
 const lightpost1 = new Lightpost(scene, new THREE.Vector3(10, 0, 4));

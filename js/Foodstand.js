@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader';
 
 class Foodstand {
-    constructor(textMessage, scene, renderer) {
+    constructor(textMessage, scene, renderer,camera) {
         this.textMessage = textMessage; // Message to display on click
         this.scene = scene; // Three.js scene
         this.renderer = renderer; // Three.js renderer
@@ -10,7 +10,7 @@ class Foodstand {
 
         // Load the 3D model and set up event listeners
         this.loadModel();
-        this.addEventListeners();
+        this.addEventListeners(camera);
     }
 
     // Load the 3D model and add it to the scene
@@ -54,7 +54,7 @@ class Foodstand {
     }
 
     // Set up event listeners to detect clicks on the 3D model
-    addEventListeners() {
+    addEventListeners(camera) {
         const raycaster = new THREE.Raycaster();   // Create a raycaster to perform raycasting for 3D interaction
         const mouse = new THREE.Vector2(); // Create a vector to store mouse coordinates
 
@@ -67,7 +67,7 @@ class Foodstand {
             mouse.x = ((event.clientX - canvasBounds.left) / canvasBounds.width) * 2 - 1;
             mouse.y = -((event.clientY - canvasBounds.top) / canvasBounds.height) * 2 + 1;
 
-            raycaster.setFromCamera(mouse, this.camera); // Set the raycaster's origin and direction based on mouse coordinates and camera perspective
+            raycaster.setFromCamera(mouse, camera); // Set the raycaster's origin and direction based on mouse coordinates and camera perspective
 
             // Check for intersections with the model
             const intersects = raycaster.intersectObjects([this.model]);
