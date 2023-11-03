@@ -11,3 +11,6 @@ Rock stone texture seamless 12624 - sketchuptextureclub.com - https://www.sketch
 Free Seamless Water Texture  Patterns with Normal Map - cadhatch.com - https://www.cadhatch.com/seamless-water-textures
 @DiamCreeper23 - https://twitter.com/DiamCreeper23/status/1631423973782331392/photo/1
 Rustic red decorative brick wall - tilingtextures.com - https://www.tilingtextures.com/tt_blog/20-brick-wall-texture-free-for-commercial-use/
+Low Poly Tree - https://sketchfab.com/3d-models/low-poly-tree-043563d59e574894bbc3de8a037a0b9f
+Raamen shop - https://sketchfab.com/3d-models/ramen-shop-3b25ca2501dc4b22bddf8df83f8c4272
+Light post - https://sketchfab.com/3d-models/lamp-post-2b6c56b1c93e4047998c0cccd3350f3f
